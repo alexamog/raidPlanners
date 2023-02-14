@@ -37,7 +37,8 @@ export default function Dashboard() {
                             <HangoutCard key={idx} author={plan.author} title={plan.title} description={plan.description}
                                 date={plan.date}
                                 time={plan.time}
-                                location={plan.location} />
+                                location={plan.location}
+                            />
                         )
                     })}
                 </SimpleGrid>
