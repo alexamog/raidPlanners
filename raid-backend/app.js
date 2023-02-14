@@ -37,8 +37,16 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.send("i am alive.");
 })
-app.get("/error", (req, res) => {
-  res.send("error.");
+app.get("/errorMock", (req, res) => {
+  res.send("failed login.");
+})
+
+app.get("/successMock", (req, res) => {
+  res.send("sucesss login.");
+})
+
+app.get("/discordMock", (req, res) => {
+  res.send("discord sucesss login.");
 })
 
 app.use("/auth", auth)

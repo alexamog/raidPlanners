@@ -25,8 +25,12 @@ const authController = {
         res.redirect("/auth/login");
     },
     loginSubmit: passport.authenticate("local", {
-        successRedirect: "/",
-        failureRedirect: "/error",
+        successRedirect: "/successMock",
+        failureRedirect: "/errorMock",
+    }),
+    discordLoginSubmit: passport.authenticate("discord", {
+        successRedirect: "/discordMock",
+        failureRedirect: "/errorMock",
     }),
 
     logout: (req, res) => {
