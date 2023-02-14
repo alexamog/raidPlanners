@@ -1,4 +1,4 @@
-import { SimpleGrid, Box, HStack, VStack, Heading } from "@chakra-ui/react"
+import { SimpleGrid, Box, VStack } from "@chakra-ui/react"
 import HangoutCard from "./HangoutCard"
 
 export default function Dashboard() {
