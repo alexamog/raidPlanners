@@ -15,22 +15,9 @@ import {
     useColorMode,
     Center,
     Heading,
+    Image
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
-
-const NavLink = ({ children }) => (
-    <Link
-        px={2}
-        py={1}
-        rounded={'md'}
-        _hover={{
-            textDecoration: 'none',
-            bg: useColorModeValue('gray.200', 'gray.700'),
-        }}
-        href={'#'}>
-        {children}
-    </Link>
-);
 
 export default function Navbar() {
     const { colorMode, toggleColorMode } = useColorMode();
@@ -38,7 +25,12 @@ export default function Navbar() {
         <>
             <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
                 <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-                    <Box>Logo</Box>
+                    <Box>
+                        <Avatar
+                            size={'md'}
+                            src={'https://cdn.discordapp.com/icons/100319471859666944/fa5992cd4155c293f1dc7b8fb8e0fde9.webp?size=96'}
+                        />
+                    </Box>
                     <Box><Heading>Raid Planner</Heading></Box>
                     <Flex alignItems={'center'}>
                         <Stack direction={'row'} spacing={7}>
@@ -68,7 +60,7 @@ export default function Navbar() {
                                     </Center>
                                     <br />
                                     <Center>
-                                        <p>Username</p>
+                                        <p>Developer</p>
                                     </Center>
                                     <br />
                                     <MenuDivider />
