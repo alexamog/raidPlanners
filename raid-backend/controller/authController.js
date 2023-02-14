@@ -28,10 +28,6 @@ const authController = {
         successRedirect: "/successMock",
         failureRedirect: "/errorMock",
     }),
-    discordLoginSubmit: passport.authenticate("discord", {
-        successRedirect: "/discordMock",
-        failureRedirect: "/errorMock",
-    }),
 
     logout: (req, res) => {
         req.logout();

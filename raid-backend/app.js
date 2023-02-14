@@ -45,10 +45,6 @@ app.get("/successMock", (req, res) => {
   res.send("sucesss login.");
 })
 
-app.get("/discordMock", (req, res) => {
-  res.send("discord sucesss login.");
-})
-
 app.use("/auth", auth)
 
 app.listen(port, () => {
