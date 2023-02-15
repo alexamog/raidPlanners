@@ -4,8 +4,8 @@ import produce from "immer";
 export const useStore = create((set) => ({
     token: null,
     profile: {
-        "name": "on",
-        "avatar": ""
+        name: "Developer",
+        avatar: ""
     },
     setToken: (token) => set(
         produce((state) => {

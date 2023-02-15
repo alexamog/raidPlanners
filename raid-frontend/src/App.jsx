@@ -16,7 +16,7 @@ function App() {
       element: <LandingPage />,
     },
     {
-      path: "dashboard",
+      path: "hangouts",
       element: <Dashboard />,
     },
     {
