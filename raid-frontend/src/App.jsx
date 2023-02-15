@@ -4,7 +4,6 @@ import Dashboard from './components/Dashboard'
 import Footer from './components/Footer'
 import Navbar from './components/Navbar'
 import CreatePlan from "./components/CreatePlan";
-import LandingPage from "./components/LandingPage";
 import Landing from "./components/landingPage/Landing";
 
 const location = new ReactLocation();

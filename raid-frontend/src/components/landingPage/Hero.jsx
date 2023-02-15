@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "@tanstack/react-location";
 import PropTypes from "prop-types";
 import {
     Box,
@@ -9,15 +10,11 @@ import {
     Stack,
     Text
 } from "@chakra-ui/react";
+import DiscordButton from "../socialButtons/DiscordButton";
 
-export default function Hero({
-    title,
-    subtitle,
-    image,
-    ctaLink,
-    ctaText,
-    ...rest
-}) {
+export default function Hero({ title, subtitle, image, ctaLink, ctaText, ...rest }) {
+    const navigate = useNavigate();
+
     return (
         <Flex
             align="center"
@@ -54,7 +51,7 @@ export default function Hero({
                 >
                     {subtitle}
                 </Heading>
-                <Button variant='solid' colorScheme='green'>
+                <Button onClick={() => { navigate({ to: "/create", replace: true }) }} variant='solid' colorScheme='green'>
                     Get started
                 </Button>
 

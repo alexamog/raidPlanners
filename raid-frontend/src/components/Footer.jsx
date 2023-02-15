@@ -1,4 +1,5 @@
 import { VStack, Text, Box } from "@chakra-ui/react";
+import DiscordButton from "./socialButtons/DiscordButton";
 
 export default function Footer() {
     return (
