@@ -1,4 +1,5 @@
 import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Image, Divider, ButtonGroup, Button, Text, HStack } from '@chakra-ui/react'
+
 export default function HangoutCard({ author, title, description, date, time, location }) {
     return (
         <Card maxW='sm'>

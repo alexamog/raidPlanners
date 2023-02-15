@@ -31,7 +31,7 @@ export default function Dashboard() {
     return (
         <VStack>
             <Box>
-                <SimpleGrid columns={3} spacing={10}>
+                <SimpleGrid columns={3} spacing={10} display={{ base: "flex", sm: "grid" }} flexDirection={{ base: "column" }} >
                     {mockUpDB.map((plan, idx) => {
                         return (
                             <HangoutCard key={idx} author={plan.author} title={plan.title} description={plan.description}
@@ -43,6 +43,6 @@ export default function Dashboard() {
                     })}
                 </SimpleGrid>
             </Box>
-        </VStack>
+        </VStack >
     )
 }
