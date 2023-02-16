@@ -1,4 +1,5 @@
 create database raidDB;
+use raidDB;
 
 create table hangouts (
     hID           int( 16) not null,
