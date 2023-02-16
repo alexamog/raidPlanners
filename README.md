@@ -3,6 +3,12 @@ A web application designed to help friends coordinate plans/events
 
 # Getting Started
 
+## Creating the .env file in raid-backend
+
+Create a .env file and paste in the following:
+
+`CLIENT_ID= TOKEN_SECRET= CALLBACK_URL=http://localhost:3001/auth/discord/callback`
+
 ## Creating the Discord OAuth application
 A Discord Bot  is needed for the Discord login strategy to work
 With your own Discord account, create a [Discord OAuth application](https://discord.com/developers/docs/intro)
