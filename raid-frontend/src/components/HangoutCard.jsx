@@ -5,7 +5,7 @@ import { useState } from 'react';
 export default function HangoutCard({ id, author, title, description, datetime, location, attendees }) {
     const profile = useStore((state) => state.profile);
     const updateCard = useDB((store) => store.updateCard);
-    const checkUser = useDB((state) => state.checkUser);
+    const cancelEvent = useDB((store) => store.deleteCard);
     const [attending, setAttending] = useState(attendees.includes(profile.id));
 
     return (
@@ -40,7 +40,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
             </CardBody>
             <Divider />
             <CardFooter>
-                <ButtonGroup spacing='2'>
+                {author != profile.username && <ButtonGroup spacing='2'>
                     <Button variant='solid' colorScheme='green' onClick={() => {
                         updateCard(id, profile.id, true)
                         setAttending(true)
@@ -54,7 +54,13 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                     }}>
                         No
                     </Button>
-                </ButtonGroup>
+                </ButtonGroup>}
+                {author == profile.username && <ButtonGroup spacing='2'>
+                    <Button variant='solid' colorScheme='red' onClick={() => {
+                        cancelEvent(id)
+                    }}>Cancel event</Button>
+                </ButtonGroup>}
+
             </CardFooter>
         </Card >
     )

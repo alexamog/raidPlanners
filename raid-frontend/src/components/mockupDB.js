@@ -45,6 +45,13 @@ export const useDB = create((set) => ({
                 }
             })
         ),
+    deleteCard: (cardId) =>
+        set(
+            produce((state) => {
+                const idx = state.mockUpDB.indexOf(state.mockUpDB.find((card) => card.id == cardId))
+                state.mockUpDB.pop(idx)
+            })
+        ),
     addCard: (card) =>
         set(
             produce((state) => {
