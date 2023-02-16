@@ -8,17 +8,22 @@ export default function Test() {
     });
 
     const setPost = (data) => {
-        axios.post("http://localhost:3001/auth/login", data)
+        // axios.defaults.withCredentials = true
+        axios.post("http://localhost:3001/auth/login", data, { withCredentials: true })
             .then((resp) => console.log(resp))
             .catch((err) => console.log(err));
     }
 
-    const setPostGet = async () => {
-        await fetch('http://localhost:8080/auth/testAPI', { mode: 'cors' })
+    const setPostGet = () => {
+        axios.get("http://localhost:3001/user", { withCredentials: true })
             .then((resp) => console.log(resp))
             .catch((err) => console.log(err));
     }
-
+    const logout = (data) => {
+        axios.post("http://localhost:3001/auth/logout", data, { withCredentials: true })
+            .then((resp) => console.log(resp))
+            .catch((err) => console.log(err));
+    }
     const handleClick = (e) => {
         e.preventDefault();
         setPost({ ...loginData })
@@ -27,6 +32,11 @@ export default function Test() {
     const handleClickGET = (e) => {
         e.preventDefault();
         setPostGet()
+    };
+
+    const handleClickLogout = (e) => {
+        e.preventDefault();
+        logout({ ...loginData });
     };
 
     return (
@@ -40,6 +50,7 @@ export default function Test() {
                 <button onClick={handleClick} type='submit'>Test POST</button>
             </form>
             <button onClick={handleClickGET} type='submit'>Test GET</button>
+            <button onClick={handleClickLogout}>Logout</button>
 
         </div>
     )

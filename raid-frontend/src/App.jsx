@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import Navbar from './components/Navbar'
 import CreatePlan from "./components/CreatePlan";
 import Landing from "./components/landingPage/Landing";
+import Test from "./components/Test";
 
 const location = new ReactLocation();
 
@@ -22,6 +23,10 @@ function App() {
     {
       path: "create",
       element: <CreatePlan />
+    },
+    {
+      path: "loginMockup",
+      element: <Test />
     }
   ];
 
