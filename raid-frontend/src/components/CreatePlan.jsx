@@ -1,18 +1,19 @@
 import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Image, Divider, ButtonGroup, Button, Text, HStack, VStack } from '@chakra-ui/react'
 import { useState, useRef } from 'react';
 import { useStore } from "../store";
+import { useDB } from "./mockupDB";
 import Landing from "../components/landingPage/Landing"
-import { addCard } from './mockupDB';
 import { useNavigate } from "@tanstack/react-location";
 
 
 export default function CreatePlan() {
     const navigate = useNavigate();
     const profile = useStore((state) => state.profile);
+    const addCard = useDB((store) => store.addCard);
     const cardRef = useRef();
     const [cardInfo, setCardInfo] = useState({
         title: null,
-        author: null,
+        author: profile.username,
         desc: null,
         datetime: null,
         location: null,
@@ -71,7 +72,7 @@ export default function CreatePlan() {
                                         cardRef.current.reset()
                                         setCardInfo({
                                             title: "",
-                                            author: "",
+                                            author: profile.username,
                                             desc: "",
                                             datetime: "",
                                             location: ""
