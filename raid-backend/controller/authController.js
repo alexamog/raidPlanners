@@ -15,6 +15,9 @@ const authController = {
     register: (req, res) => {
         res.render("/register");
     },
+    checkUser: (req, res) => {
+        res.send(req.user);
+    },
     registerSubmit: (req, res) => {
         const userInput = req.body;
         database.push({

@@ -12,4 +12,6 @@ router.post("/logout", ensureAuthenticated, authController.logout);
 router.get('/discord', authController.discordLogin);
 router.get('/discord/callback', authController.discordCB);
 
+router.get("/user", ensureAuthenticated, authController.checkUser)
+
 module.exports = router;
