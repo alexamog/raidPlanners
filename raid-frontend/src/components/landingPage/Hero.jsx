@@ -65,7 +65,8 @@ export default function Hero({ title, subtitle, image, ctaLink, ctaText, ...rest
                         <Text>Continue with Discord</Text>
                     </Center>
                 </Button>}
-                {profile.username != null && <Button onClick={() => { navigate({ to: "/create", replace: true }) }} variant='solid' colorScheme='green'>
+                {profile.username != null && <Button                     w={'full'}
+                    maxW={'md'} onClick={() => { navigate({ to: "/create", replace: true }) }} variant='solid' colorScheme='green'>
                     Get started
                 </Button>}
 
