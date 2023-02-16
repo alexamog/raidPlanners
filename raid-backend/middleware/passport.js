@@ -14,27 +14,14 @@ const discordLogin = new DiscordStrategy(
         scope: ['identify', 'email']
     },
     function (accessToken, refreshToken, profile, done) {
-        const user = userController.getUserById(profile.id)
-        return done(null, user);
+        const user = userController.getUserByIdOrAdd(profile)
+        if (user != null) {
+            return done(null, user);
+        }
     }
 )
-
-const localLogin = new LocalStrategy(
-    {
-        usernameField: "email",
-        passwordField: "password",
-    },
-    (email, password, done) => {
-        const user = userController.getUserByEmailIdAndPassword(email, password);
-        return user
-            ? done(null, user)
-            : done(null, false, {
-                message: "Your login details are not valid. Please try again",
-            });
-    }
-);
-
 passport.serializeUser((user, done) => {
+    console.log(user)
     done(null, user.id);
 });
 
@@ -47,4 +34,4 @@ passport.deserializeUser((id, done) => {
     }
 });
 
-module.exports = passport.use(localLogin).use(discordLogin);
+module.exports = passport.use(discordLogin);
