@@ -2,7 +2,7 @@ import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Image, Divider,
 import { useStore } from '../store';
 import { useDB } from "./mockupDB";
 import { useState } from 'react';
-export default function HangoutCard({ id, author, title, description, datetime, location, attendees }) {
+export default function HangoutCard({ id, author, title, description, datetime, location, attendees, authorId }) {
     const profile = useStore((state) => state.profile);
     const updateCard = useDB((store) => store.updateCard);
     const cancelEvent = useDB((store) => store.deleteCard);
@@ -40,7 +40,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
             </CardBody>
             <Divider />
             <CardFooter>
-                {author != profile.username && <ButtonGroup spacing='2'>
+                {authorId != profile.id && <ButtonGroup spacing='2'>
                     <Button variant='solid' colorScheme='green' onClick={() => {
                         updateCard(id, profile.id, true)
                         setAttending(true)
@@ -55,7 +55,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                         No
                     </Button>
                 </ButtonGroup>}
-                {author == profile.username && <ButtonGroup spacing='2'>
+                {authorId == profile.id && <ButtonGroup spacing='2'>
                     <Button variant='solid' colorScheme='red' onClick={() => {
                         cancelEvent(id)
                     }}>Cancel event</Button>

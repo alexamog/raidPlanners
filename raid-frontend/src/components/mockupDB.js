@@ -7,6 +7,7 @@ export const useDB = create((set) => ({
         {
             id: "1",
             author: "Devan",
+            authorId: "dev123",
             title: "Friday Raid Night",
             description: "come bingChilling",
             datetime: "2023-02-08T12:12",
@@ -16,6 +17,7 @@ export const useDB = create((set) => ({
         {
             id: "2",
             author: "Alex",
+            authorId: "ale123",
             title: "Leetcode Session",
             description: "Leetcode grind time!!",
             datetime: "2023-02-08T12:12",
@@ -25,6 +27,7 @@ export const useDB = create((set) => ({
         {
             id: "3",
             author: "Bry-guy",
+            authorId: "bryguy",
             title: "Antman Movie",
             description: "Cineplex!",
             datetime: "2023-02-08T12:12",
@@ -58,6 +61,7 @@ export const useDB = create((set) => ({
                 state.mockUpDB.push({
                     id: uuidv4(),
                     author: card.author,
+                    authorId: card.authorId,
                     title: card.title,
                     description: card.desc,
                     datetime: card.datetime,

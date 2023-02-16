@@ -14,6 +14,7 @@ export default function CreatePlan() {
     const [cardInfo, setCardInfo] = useState({
         title: null,
         author: profile.username,
+        authorId: profile.id,
         desc: null,
         datetime: null,
         location: null,
@@ -73,6 +74,7 @@ export default function CreatePlan() {
                                         setCardInfo({
                                             title: "",
                                             author: profile.username,
+                                            authorId: profile.id,
                                             desc: "",
                                             datetime: "",
                                             location: ""

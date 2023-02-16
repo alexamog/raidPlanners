@@ -20,6 +20,7 @@ export default function Dashboard() {
                                 datetime={hangout.datetime}
                                 location={hangout.location}
                                 attendees = {hangout.attending}
+                                authorId = {hangout.authorId}
                             />
                         ))}
 
