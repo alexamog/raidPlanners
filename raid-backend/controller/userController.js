@@ -17,6 +17,7 @@ const getUserById = (id) => {
     return null;
 };
 
+
 const isUserValid = (user, password) => {
     return user.password === password;
 }

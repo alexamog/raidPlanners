@@ -6,7 +6,7 @@ const database = [
         "password": "123",
         "firstName": "Alex",
         "lastName": "Amog"
-    },  
+    },
     {
         "id": "2",
         "username": "bryancampos",
@@ -14,6 +14,12 @@ const database = [
         "password": "123",
         "firstName": "Bryan",
         "lastName": "Campos"
+    },
+    {
+        "id": "165897917004120064",
+        "profilePicture": "2795e49b4d786de5cf5953cf592c1b4f",
+        "username": "Lenny",
+        "discriminator": "8080"
     },
 ]
 

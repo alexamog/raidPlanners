@@ -30,6 +30,11 @@ const authController = {
         successRedirect: "/successMock",
         failureRedirect: "/errorMock",
     }),
+    discordLogin: passport.authenticate("discord"),
+    discordCB: passport.authenticate("discord", {
+        successRedirect: "http://localhost:5173/hangouts",
+        failureRedirect: "/errorMock",
+    }),
 
     logout: (req, res, next) => {
         req.logout(function (err) {

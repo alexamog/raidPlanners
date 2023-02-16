@@ -12,6 +12,7 @@ router.get("/errorMock", (req, res) => {
 
 router.get("/successMock", ensureAuthenticated, (req, res) => {
     console.log(req.isAuthenticated())
+    console.log(req.user)
     res.send({ "msg": "success login" })
 })
 
