@@ -54,6 +54,8 @@ export default function Hero({ title, subtitle, image, ctaLink, ctaText, ...rest
                 <Button onClick={() => { navigate({ to: "/create", replace: true }) }} variant='solid' colorScheme='green'>
                     Get started
                 </Button>
+                
+
 
             </Stack>
             <Box w={{ base: "80%", sm: "60%", md: "50%" }} mb={{ base: 12, md: 0 }}>

@@ -1,9 +1,23 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const DiscordStrategy = require('passport-discord').Strategy;
 const userController = require("../controller/userController");
 const process = require("process");
 const dotenv = require('dotenv');
 dotenv.config();
+
+const discordLogin = new DiscordStrategy(
+    {
+        clientID: process.env.CLIENT_ID,
+        clientSecret: process.env.TOKEN_SECRET,
+        callbackURL: process.env.CALLBACK_URL,
+        scope: ['identify', 'email']
+    },
+    function (accessToken, refreshToken, profile, done) {
+        const user = userController.getUserById(profile.id)
+        return done(null, user);
+    }
+)
 
 const localLogin = new LocalStrategy(
     {
@@ -33,4 +47,4 @@ passport.deserializeUser((id, done) => {
     }
 });
 
-module.exports = passport.use(localLogin);
+module.exports = passport.use(localLogin).use(discordLogin);

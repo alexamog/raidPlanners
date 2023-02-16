@@ -2,13 +2,13 @@ import { useState } from "react"
 import axios from "axios"
 
 export default function Test() {
+
     const [loginData, setLoginData] = useState({
         "email": null,
         "password": null
     });
 
     const setPost = (data) => {
-        // axios.defaults.withCredentials = true
         axios.post("http://localhost:3001/auth/login", data, { withCredentials: true })
             .then((resp) => console.log(resp))
             .catch((err) => console.log(err));
@@ -49,9 +49,10 @@ export default function Test() {
                 <input type='password' onChange={(e) => setLoginData({ ...loginData, password: e.target.value })} />
                 <button onClick={handleClick} type='submit'>Test POST</button>
             </form>
-            <button onClick={handleClickGET} type='submit'>Test GET</button>
-            <button onClick={handleClickLogout}>Logout</button>
+            {/* <button onClick={handleClickGET} type='submit'>Test GET</button> */}
+            {/* <button onClick={handleClickLogout}>Logout</button> */}
 
+            {/* http://localhost:3001/auth/discord */}
         </div>
     )
 }
