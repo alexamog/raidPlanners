@@ -2,11 +2,12 @@ const path = require("path");
 const express = require("express");
 const port = process.env.PORT || 3001;
 const app = express();
-const bodyParser = require("body-parser")
 const ejsLayouts = require("express-ejs-layouts");
 const passport = require("passport")
 const session = require("express-session");
-const auth = require("./routes/auth")
+const auth = require("./routes/auth");
+const index = require("./routes/index");
+
 const cors = require('cors');
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -32,20 +33,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(cors());
 
-app.get("/", (req, res) => {
-  res.send("i am alive.");
-})
-app.get("/errorMock", (req, res) => {
-  res.send("failed login.");
-})
 
-app.get("/successMock", (req, res) => {
-  res.send("sucesss login.");
-})
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true,
+}));
 
 app.use("/auth", auth)
+app.use("/", index)
 
 app.listen(port, () => {
   console.log(`🚀 Server has started at http://localhost:${port}`);

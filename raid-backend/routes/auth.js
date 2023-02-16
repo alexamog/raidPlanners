@@ -1,10 +1,12 @@
 const authController = require("../controller/authController");
+const checkAuth = require("../middleware/checkAuth");
 const express = require("express");
+const { ensureAuthenticated, forwardAuthenticated } = require("../middleware/checkAuth");
 const router = express.Router();
-const { forwardAuthenticated } = require("../middleware/checkAuth");
 
 //for actual controller
-router.post("/login", authController.loginSubmit);
-// router.post("/register", authController.register);
+router.post("/login", forwardAuthenticated, authController.loginSubmit);
+router.post("/register", forwardAuthenticated, authController.registerSubmit);
+router.post("/logout", ensureAuthenticated, authController.logout);
 
 module.exports = router;

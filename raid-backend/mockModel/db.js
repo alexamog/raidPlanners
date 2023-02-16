@@ -6,7 +6,7 @@ const database = [
         "password": "123",
         "firstName": "Alex",
         "lastName": "Amog"
-    },
+    },  
     {
         "id": "2",
         "username": "bryancampos",
