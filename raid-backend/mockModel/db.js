@@ -21,6 +21,12 @@ const database = [
         "username": "Lenny",
         "discriminator": "8080"
     },
+    {
+        "id": "100319324333432832",
+        "profilePicture": "a57b03dcb179eb2ca827f55fbb828b08",
+        "username": "SeisNames",
+        "discriminator": "8162"
+    }
 ]
 
 const userModel = {
