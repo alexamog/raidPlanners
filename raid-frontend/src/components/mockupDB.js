@@ -1,4 +1,6 @@
-export const mockUpDB = [
+import { v4 as uuidv4 } from 'uuid';
+
+const mockUpDB = [
     {
         id: "1",
         author: "Devan",
@@ -27,3 +29,19 @@ export const mockUpDB = [
         attending: ["165897917004120064"]
     }
 ]
+
+const addCard = (card) => {
+    mockUpDB.push({
+        id: uuidv4(),
+        author: card.author,
+        title: card.title,
+        description: card.desc,
+        datetime: card.datetime,
+        location: card.location,
+        attending: card.attending
+    })
+}
+export {
+    mockUpDB,
+    addCard
+}
