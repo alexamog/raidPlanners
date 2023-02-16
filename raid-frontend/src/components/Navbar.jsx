@@ -82,7 +82,8 @@ export default function Navbar() {
                                     </Center>
                                     <br />
                                     <MenuDivider />
-                                    <MenuItem onClick={() => navigate({ to: "/hangouts", replace: true })}>Hangouts</MenuItem>
+                                    <MenuItem onClick={() => navigate({ to: "/hangouts", replace: true })}>Your hangouts</MenuItem>
+                                    <MenuItem onClick={() => navigate({ to: "/hangouts", replace: true })}>Available hangouts</MenuItem>
                                     <MenuItem onClick={() => navigate({ to: "/create", replace: true })}>Create Hangout</MenuItem>
                                 </MenuList>
                             </Menu>

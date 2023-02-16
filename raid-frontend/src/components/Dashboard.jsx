@@ -1,48 +1,43 @@
-import { SimpleGrid, Box, VStack } from "@chakra-ui/react"
+import { SimpleGrid, Box, VStack, Heading } from "@chakra-ui/react"
 import HangoutCard from "./HangoutCard"
+import { useStore } from "../store";
+import Landing from "./landingPage/Landing"
+import { mockUpDB } from "./mockupDB";
 
 export default function Dashboard() {
-    const mockUpDB = [
-        {
-            "author": "Devan",
-            "title": "Friday Raid Night",
-            "description": "come bingChilling",
-            "date": "2023-02-17",
-            "time": "13:00pm - 20:00pm",
-            "location": "1234 house ave."
-        },
-        {
-            "author": "Alex",
-            "title": "Leetcode Session",
-            "description": "Leetcode grind time!!",
-            "date": "2023-02-15",
-            "time": "12:00pm - 15:00pm",
-            "location": "Discord"
-        },
-        {
-            "author": "Bry-guy",
-            "title": "Antman Movie",
-            "description": "Cineplex!",
-            "date": "2023-02-14",
-            "time": "20:00pm - 23:00pm",
-            "location": "Silvercity Cineplex"
-        }
-    ]
+    const profile = useStore((state) => state.profile);
+    if (profile.username == null) {
+        return <Landing />
+    }
     return (
-        <VStack>
-            <Box>
-                <SimpleGrid columns={3} spacing={10} display={{ base: "flex", sm: "grid" }} flexDirection={{ base: "column" }} >
-                    {mockUpDB.map((plan, idx) => {
-                        return (
-                            <HangoutCard key={idx} author={plan.author} title={plan.title} description={plan.description}
-                                date={plan.date}
-                                time={plan.time}
-                                location={plan.location}
+        <Box>
+            <VStack>
+                <Box>
+                    <Heading p="0.1em" textAlign={{ base: "center", sm: "left" }}>Attending: </Heading>
+                    <SimpleGrid columns={3} spacing={5} display={{ base: "flex", sm: "grid" }} flexDirection={{ base: "column" }} >
+                        {mockUpDB.filter(hangout => hangout.attending.includes(profile.id)).map(hangout => (
+                            <HangoutCard key={hangout.id} author={hangout.author} title={hangout.title} description={hangout.description}
+                                datetime={hangout.datetime}
+                                location={hangout.location}
                             />
-                        )
-                    })}
-                </SimpleGrid>
-            </Box>
-        </VStack >
+                        ))}
+
+                    </SimpleGrid>
+                </Box>
+            </VStack >
+            <VStack>
+                <Box>
+                    <Heading p="0.1em" textAlign={{ base: "center", sm: "left" }}>Available: </Heading>
+                    <SimpleGrid columns={3} spacing={5} display={{ base: "flex", sm: "grid" }} flexDirection={{ base: "column" }}>
+                        {mockUpDB.filter(hangout => !hangout.attending.includes(profile.id)).map(hangout => (
+                            <HangoutCard key={hangout.id} author={hangout.author} title={hangout.title} description={hangout.description}
+                                datetime={hangout.datetime}
+                                location={hangout.location}
+                            />
+                        ))}
+                    </SimpleGrid>
+                </Box>
+            </VStack>
+        </Box>
     )
 }

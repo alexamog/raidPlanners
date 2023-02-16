@@ -1,6 +1,6 @@
 import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Image, Divider, ButtonGroup, Button, Text, HStack } from '@chakra-ui/react'
 
-export default function HangoutCard({ author, title, description, date, time, location }) {
+export default function HangoutCard({ author, title, description, datetime, location }) {
     return (
         <Card maxW='sm'>
             <CardBody>
@@ -15,10 +15,7 @@ export default function HangoutCard({ author, title, description, date, time, lo
                         Desc: {description}
                     </Text>
                     <Text>
-                        Date: {date}
-                    </Text>
-                    <Text>
-                        Time: {time}
+                        Date and time: {new Date(datetime).toLocaleString()}
                     </Text>
                     <Text>
                         Location: {location}
@@ -42,6 +39,6 @@ export default function HangoutCard({ author, title, description, date, time, lo
                     </Button>
                 </ButtonGroup>
             </CardFooter>
-        </Card>
+        </Card >
     )
 }

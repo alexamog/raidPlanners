@@ -5,7 +5,6 @@ import Footer from './components/Footer'
 import Navbar from './components/Navbar'
 import CreatePlan from "./components/CreatePlan";
 import Landing from "./components/landingPage/Landing";
-
 const location = new ReactLocation();
 
 function App() {
