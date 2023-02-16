@@ -65,7 +65,7 @@ export default function Navbar() {
                                     minW={0}>
                                     <Avatar
                                         size={'sm'}
-                                        src={`https://cdn.discordapp.com/avatars/165897917004120064/${profile.avatar}.png`}
+                                        src={`https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.png`}
                                     />
                                 </MenuButton>
                                 <MenuList alignItems={'center'}>
@@ -73,7 +73,7 @@ export default function Navbar() {
                                     <Center>
                                         <Avatar
                                             size={'2xl'}
-                                            src={`https://cdn.discordapp.com/avatars/165897917004120064/${profile.avatar}.png`}
+                                            src={`https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.png`}
                                         />
                                     </Center>
                                     <br />
