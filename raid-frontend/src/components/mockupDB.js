@@ -4,7 +4,7 @@ import produce from "immer";
 
 export const useDB = create((set) => ({
     mockUpDB: [{
-        id: "uuid23432",
+        id: "1",
         author: "Bry-guy",
         authorId: "100319324333432832",
         discriminator: "831",

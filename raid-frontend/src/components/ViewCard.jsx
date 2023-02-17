@@ -48,7 +48,7 @@ export default function ViewCard() {
                     pos={'relative'}
                 />
                 <Heading fontSize={'2xl'} fontFamily={'body'}>
-                    {card.title}
+                    Query param id: {card.id}
                 </Heading>
                 <Text fontWeight={600} color={'gray.500'} mb={4}>
                     @{card.author}#{card.authorDiscriminator}
@@ -89,7 +89,7 @@ export default function ViewCard() {
 
                 {card.authorId != profile.id && <Stack mt={8} direction={'row'} spacing={4}>
                     <Button onClick={() => {
-                        updateCard(id, profile.id, true)
+                        updateCard(card.id, profile.id, true)
                         setAttending(true)
                     }}
                         flex={1}
@@ -101,7 +101,7 @@ export default function ViewCard() {
                         Yes
                     </Button>
                     <Button onClick={() => {
-                        updateCard(id, profile.id, false)
+                        updateCard(card.id, profile.id, false)
                         setAttending(false)
 
                     }}

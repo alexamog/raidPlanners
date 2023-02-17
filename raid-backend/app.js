@@ -7,6 +7,7 @@ const passport = require("passport")
 const session = require("express-session");
 const auth = require("./routes/auth");
 const index = require("./routes/index");
+const db = require("./routes/db");
 
 const cors = require('cors');
 
@@ -42,6 +43,7 @@ app.use(cors({
 
 app.use("/auth", auth)
 app.use("/", index)
+app.use("/db", db)
 
 app.listen(port, () => {
   console.log(`🚀 Server has started at http://localhost:${port}`);
