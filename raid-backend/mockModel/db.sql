@@ -2,13 +2,14 @@ create database raidDB;
 use raidDB;
 
 create table hangouts (
-    hID               int  not null auto_increment,
-    hAuthor   varchar( 16) not null,
-    hTitle    varchar( 16) not null,
-    hDesc     varchar(128),
-    hStartDT      datetime not null,
-    hEndDT        datetime not null,
-    hLocation varchar(128),
+    hID                 int not null auto_increment,
+    hAuthor    varchar( 16) not null,
+    hTitle     varchar( 16) not null,
+    hDesc      varchar(128),
+    hStartDT       datetime not null,
+    hEndDT         datetime not null,
+    hLocation  varchar(128),
+    hAttendees        int[]        
 
     primary key (hangoutID)
 );
