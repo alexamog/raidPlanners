@@ -39,9 +39,9 @@ export default function CreatePlan() {
                             <CardBody textAlign={"center"} bg={useColorModeValue('white', 'gray.900')}>
                                 <Stack mt='6' spacing='3'>
                                     <Heading>Create an event</Heading>
-                                    <Text size='md'>Title:  <br /> <input required onChange={(e) => setCardInfo({ ...cardInfo, title: e.target.value })} maxLength={"25"} placeholder='Enter a title' /></Text>
+                                    <Text size='md'>Title:  <br /> <input required onChange={(e) => setCardInfo({ ...cardInfo, title: e.target.value })} minLength={"5"} maxLength={"25"} placeholder='Enter a title' /></Text>
                                     <Text>
-                                        Description: <br />  <input required onChange={(e) => setCardInfo({ ...cardInfo, desc: e.target.value })} maxLength={"33"} placeholder='Enter a short description' />
+                                        Description: <br />  <input required onChange={(e) => setCardInfo({ ...cardInfo, desc: e.target.value })} minLength={"5"} maxLength={"33"} placeholder='Enter a short description' />
                                     </Text>
                                     <Text>
                                         Date and time: <br />
@@ -52,7 +52,7 @@ export default function CreatePlan() {
                                         }} placeholder='Enter a date' />
                                     </Text>
                                     <Text>
-                                        Location: <br /> <input required onChange={(e) => setCardInfo({ ...cardInfo, location: e.target.value })} maxLength={"25"} placeholder='Enter a location' />
+                                        Location: <br /> <input required onChange={(e) => setCardInfo({ ...cardInfo, location: e.target.value })} minLength={"5"} maxLength={"25"} placeholder='Enter a location' />
                                     </Text>
                                 </Stack>
                             </CardBody>
