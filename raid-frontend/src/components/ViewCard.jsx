@@ -63,6 +63,7 @@ export default function ViewCard() {
                         py={1}
                         bg={"blue.700"}
                         fontWeight={'400'}
+                        color={"white"}
                     >
                         Attendees: {card.attending.length}
                     </Badge>
@@ -70,7 +71,9 @@ export default function ViewCard() {
                         px={2}
                         py={1}
                         bg={"purple.700"}
-                        fontWeight={'400'}>
+                        fontWeight={'400'}
+                        color={"white"}
+                        >
                         {card.location}
                     </Badge>
 
@@ -87,7 +90,7 @@ export default function ViewCard() {
                     {attending && <Text fontSize={"3xl"} fontWeight={"black"} color={"green.400"}>Attending</Text>}
                 </Stack>
 
-                {card.authorId != profile.id && <Stack mt={8} direction={'row'} spacing={4}>
+                {card.authorId != profile.id && profile.username != null && <Stack mt={8} direction={'row'} spacing={4}>
                     <Button onClick={() => {
                         updateCard(card.id, profile.id, true)
                         setAttending(true)

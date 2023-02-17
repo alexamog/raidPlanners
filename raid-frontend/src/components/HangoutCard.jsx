@@ -53,6 +53,8 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                         py={1}
                         bg={"blue.700"}
                         fontWeight={'400'}
+                        color={"white"}
+
                     >
                         Attendees: {attendees.length}
                     </Badge>
@@ -71,7 +73,9 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                         py={1}
                         bg={useColorModeValue('gray.50', 'gray.800')}
                         fontSize={"1em"}
-                        fontWeight={'200'}>
+                        fontWeight={'200'}
+                        color={"white"}
+                    >
                         {new Date(datetime).toLocaleString()}
                     </Badge>
                     {attending && <Text fontSize={"3xl"} fontWeight={"black"} color={"green.400"}>Attending</Text>}
