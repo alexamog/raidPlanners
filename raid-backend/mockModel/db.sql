@@ -14,8 +14,11 @@ create table hangouts (
 );
 
 create table users (
-    userID   varchar(128) unique not null,
+    userID       int( 32) unique not null,
     userName varchar(128) unique not null,
 
     primary key (userID)
 );
+
+insert into users (userID, userName)
+values (000000000000000000, 'user0#0000');
