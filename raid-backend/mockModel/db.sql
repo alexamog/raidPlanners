@@ -2,7 +2,7 @@ create database raidDB;
 use raidDB;
 
 create table hangouts (
-    hID           int( 16) not null,
+    hID               int  not null auto_increment,
     hAuthor   varchar( 16) not null,
     hTitle    varchar( 16) not null,
     hDesc     varchar(128),
@@ -14,7 +14,7 @@ create table hangouts (
 );
 
 create table users (
-    userID       int( 32) unique not null,
+    userID            int not null,
     userName varchar(128) unique not null,
 
     primary key (userID)
