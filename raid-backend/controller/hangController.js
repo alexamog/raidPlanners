@@ -24,9 +24,9 @@ const Hangout = (title, sDT, eDT, desc, loc) => {
  * @returns {Hangout} A hangout object of the matching ID
  */
 const getHangoutByID = async (id) =>  {
-    const [rows, fields] = await conn.execute("select * from `hangouts` where `id` = ?", [id])
-    const result = Hangout(fields);
-    
+    const [rows, fields] = await conn.execute("select * from `hangouts` where `id` = ?", [id]);
+    const result = Hangout(rows);
+
     return result;
 };
 
