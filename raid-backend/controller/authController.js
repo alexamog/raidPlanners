@@ -40,9 +40,10 @@ const authController = {
     }),
 
     logout: (req, res, next) => {
+        // Set token to none and expire after 5 seconds
         req.logout(function (err) {
             if (err) { return next(err); }
-            res.send("Logged out.")
+            res.redirect('/');
         });
     },
 };

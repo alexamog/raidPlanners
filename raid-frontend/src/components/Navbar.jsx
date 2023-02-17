@@ -82,9 +82,13 @@ export default function Navbar() {
                                     </Center>
                                     <br />
                                     <MenuDivider />
-                                    <MenuItem onClick={() => navigate({ to: "/hangouts", replace: true })}>Your hangouts</MenuItem>
-                                    <MenuItem onClick={() => navigate({ to: "/hangouts", replace: true })}>Available hangouts</MenuItem>
+                                    <MenuItem onClick={() => navigate({ to: "/hangouts", replace: true })}>Hangouts</MenuItem>
                                     <MenuItem onClick={() => navigate({ to: "/create", replace: true })}>Create Hangout</MenuItem>
+                                    <MenuItem onClick={() => {
+                                        axios.get("http://localhost:3001/auth/logout", { withCredentials: true })
+                                        navigate({ to: "/", replace: true })
+                                        window.location.reload();
+                                    }}>Logout</MenuItem>
                                 </MenuList>
                             </Menu>
                             }
