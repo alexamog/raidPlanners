@@ -14,8 +14,8 @@ create table hangouts (
 );
 
 create table users (
-    userID            int not null,
-    userName varchar(128) unique not null,
+    userID           int not null,
+    userName varchar(16) unique not null,
 
     primary key (userID)
 );
