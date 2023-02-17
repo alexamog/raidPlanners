@@ -1,0 +1,28 @@
+version: "3"
+services:
+  react-frontend:
+    build: ./raid-frontend
+    ports:
+      - "5173:5173"
+    networks:
+      raidplanners-network:
+        ipv4_address: 10.5.0.6
+
+  express-backend:
+    build: ./raid-backend
+    ports:
+      - "3001:3001"
+    networks:
+      raidplanners-network:
+        ipv4_address: 10.5.0.8
+
+volumes:
+  my-db:
+
+networks:
+  raidplanners-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/24
+          gateway: 10.5.0.1
