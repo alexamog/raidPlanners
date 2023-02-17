@@ -32,11 +32,15 @@ export default function CreatePlan() {
         <div>
             <VStack>
                 <HStack>
-                    <Card maxW='sm' m="1em">
+                    <Card maxW='sm' m="1em" align="center"
+                        justify={{ base: "center", md: "space-around", xl: "space-between" }}
+                        direction={{ base: "column-reverse", md: "row" }}
+                        mb={16}
+                        >
                         <form ref={cardRef} onSubmit={(e) => {
                             onSubmit(e);
                         }}>
-                            <CardBody textAlign={"center"} bg={useColorModeValue('white', 'gray.900')}>
+                            <CardBody textAlign={"center"} bg={useColorModeValue('white', 'gray.900')} >
                                 <Stack mt='6' spacing='3'>
                                     <Heading>Create an event</Heading>
                                     <Text size='md'>Title:  <br /> <input required onChange={(e) => setCardInfo({ ...cardInfo, title: e.target.value })} minLength={"5"} maxLength={"25"} placeholder='Enter a title' /></Text>
@@ -57,7 +61,7 @@ export default function CreatePlan() {
                                 </Stack>
                             </CardBody>
                             <Divider />
-                            <CardFooter bg={useColorModeValue('white', 'gray.900')}>
+                            <CardFooter bg={useColorModeValue('white', 'gray.900')} >
                                 <ButtonGroup spacing='2'>
                                     <Button type="submit" variant='solid' colorScheme='green'>
                                         Create card

@@ -12,7 +12,13 @@ export default function Dashboard() {
         return <Landing />
     }
     return (
-        <Box>
+        <Box align="center"
+            justify={{ base: "center", md: "space-around", xl: "space-between" }}
+            direction={{ base: "column-reverse", md: "row" }}
+            wrap="no-wrap"
+            minH="70vh"
+            px={8}
+            mb={16}>
             <VStack>
                 <Box>
                     <SimpleGrid columns={3} spacing={5} display={{ base: "flex", sm: "grid" }} flexDirection={{ base: "column" }} >
