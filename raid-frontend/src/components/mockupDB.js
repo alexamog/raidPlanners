@@ -1,6 +1,6 @@
+import { v4 as uuidv4 } from "uuid";
 import create from "zustand";
 import produce from "immer";
-import { v4 as uuidv4 } from 'uuid';
 
 export const useDB = create((set) => ({
     mockUpDB: [],
@@ -20,8 +20,8 @@ export const useDB = create((set) => ({
     deleteCard: (cardId) =>
         set(
             produce((state) => {
-                const idx = state.mockUpDB.indexOf(state.mockUpDB.find((card) => card.id == cardId))
-                state.mockUpDB.pop(idx)
+                const idx = state.mockUpDB.indexOf(state.mockUpDB.find((plan) => plan.id == cardId))
+                state.mockUpDB.splice(idx, 1)
             })
         ),
     addCard: (card) =>
@@ -37,6 +37,8 @@ export const useDB = create((set) => ({
                     location: card.location,
                     attending: card.attending
                 })
+                console.log(console.log(state.mockUpDB[-1])
+                )
             })
         )
 }));

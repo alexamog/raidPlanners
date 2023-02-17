@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Image, Divider, ButtonGroup, Button, Text, HStack, VStack } from '@chakra-ui/react'
+import { Card, CardHeader, CardBody, CardFooter, useColorModeValue, Stack, Heading, Image, Divider, ButtonGroup, Button, Text, HStack, VStack } from '@chakra-ui/react'
 import { useState, useRef } from 'react';
 import { useStore } from "../store";
 import { useDB } from "./mockupDB";
@@ -36,35 +36,28 @@ export default function CreatePlan() {
                         <form ref={cardRef} onSubmit={(e) => {
                             onSubmit(e);
                         }}>
-
-                            <CardBody>
-                                <Image
-                                    src='https://cdn.discordapp.com/attachments/627599006536695852/957545935708233738/unknown.png'
-                                    alt='Hangout'
-                                    borderRadius='lg'
-                                />
+                            <CardBody textAlign={"center"} bg={useColorModeValue('white', 'gray.900')}>
                                 <Stack mt='6' spacing='3'>
-                                    <Heading size='md'><CardHeader>Title: <input required onChange={(e) => setCardInfo({ ...cardInfo, title: e.target.value })} placeholder='Enter a title' /></CardHeader></Heading>
+                                    <Heading>Create an event</Heading>
+                                    <Text size='md'>Title:  <br /> <input required onChange={(e) => setCardInfo({ ...cardInfo, title: e.target.value })} placeholder='Enter a title' /></Text>
                                     <Text>
-                                        Desc:  <input required onChange={(e) => setCardInfo({ ...cardInfo, desc: e.target.value })} placeholder='Enter a short description' />
+                                        Description: <br />  <input required onChange={(e) => setCardInfo({ ...cardInfo, desc: e.target.value })} placeholder='Enter a short description' />
                                     </Text>
                                     <Text>
-                                        Date and time: <input required type="datetime-local" onChange={(e) => {
+                                        Date and time: <br />
+                                        <input required type="datetime-local" onChange={(e) => {
                                             setCardInfo({ ...cardInfo, datetime: e.target.value })
                                         }} onClick={(e) => {
                                             setCardInfo({ ...cardInfo, datetime: e.target.value })
                                         }} placeholder='Enter a date' />
                                     </Text>
                                     <Text>
-                                        Location: <input required onChange={(e) => setCardInfo({ ...cardInfo, location: e.target.value })} placeholder='Enter a location' />
-                                    </Text>
-                                    <Text color='blue.600' fontSize='2xl'>
-                                        Author: {profile.username}:{profile.discriminator}
+                                        Location: <br /> <input required onChange={(e) => setCardInfo({ ...cardInfo, location: e.target.value })} placeholder='Enter a location' />
                                     </Text>
                                 </Stack>
                             </CardBody>
                             <Divider />
-                            <CardFooter>
+                            <CardFooter bg={useColorModeValue('white', 'gray.900')}>
                                 <ButtonGroup spacing='2'>
                                     <Button type="submit" variant='solid' colorScheme='green'>
                                         Create card
@@ -83,6 +76,7 @@ export default function CreatePlan() {
                                         Reset
                                     </Button>
                                 </ButtonGroup>
+
                             </CardFooter>
                         </form>
                     </Card>

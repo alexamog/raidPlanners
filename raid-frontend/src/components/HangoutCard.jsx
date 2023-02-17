@@ -1,67 +1,121 @@
-import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Image, Divider, ButtonGroup, Button, Text, HStack } from '@chakra-ui/react'
 import { useStore } from '../store';
 import { useDB } from "./mockupDB";
 import { useState } from 'react';
+import {
+    Heading,
+    Avatar,
+    Box,
+    Center,
+    Text,
+    Stack,
+    Button,
+    Badge,
+    useColorModeValue,
+} from '@chakra-ui/react';
+
 export default function HangoutCard({ id, author, title, description, datetime, location, attendees, authorId }) {
     const profile = useStore((state) => state.profile);
     const updateCard = useDB((store) => store.updateCard);
     const cancelEvent = useDB((store) => store.deleteCard);
     const [attending, setAttending] = useState(attendees.includes(profile.id));
-
     return (
-        <Card maxW='sm'>
-            <CardBody>
-                <Image
-                    src='https://cdn.discordapp.com/attachments/627599006536695852/957545935708233738/unknown.png'
-                    alt='Hangout'
-                    borderRadius='lg'
+        <Center py={6}>
+            <Box
+                maxW={'320px'}
+                w={'full'}
+                bg={useColorModeValue('white', 'gray.900')}
+                boxShadow={'2xl'}
+                rounded={'lg'}
+                p={6}
+                textAlign={'center'}>
+                <Avatar
+                    size={'xl'}
+                    src={
+                        `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.png`
+                    }
+                    alt={'Avatar Alt'}
+                    mb={4}
+                    pos={'relative'}
                 />
-                <Stack mt='6' spacing='3'>
-                    <Heading size='md'><CardHeader>{title}</CardHeader></Heading>
-                    <Text>
-                        Desc: {description}
-                    </Text>
-                    <Text>
-                        Date and time: {new Date(datetime).toLocaleString()}
-                    </Text>
-                    <Text>
-                        Location: {location}
-                    </Text>
-                    <Text>
-                        Attendees: {attendees.length}
-                    </Text>
-                    <Text color='blue.600' fontSize='2xl'>
-                        Author: {author}
-                    </Text>
-                    {attending && <Text color="green.100" fontSize="2xl" fontWeight="bold">
+                <Heading fontSize={'2xl'} fontFamily={'body'}>
+                    {title}
+                </Heading>
+                <Text fontWeight={600} color={'gray.500'} mb={4}>
+                    @{profile.username}#{profile.discriminator}
+                </Text>
+                <Text>
+                    {description}
+                </Text>
 
-                        Attending</Text>}
+                <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
+                    <Badge
+                        px={2}
+                        py={1}
+                        bg={"blue.700"}
+                        fontWeight={'400'}
+                    >
+                        Attendees: {attendees.length}
+                    </Badge>
+                    <Badge
+                        px={2}
+                        py={1}
+                        bg={"purple.700"}
+                        fontWeight={'400'}>
+                        {location}
+                    </Badge>
+
                 </Stack>
-            </CardBody>
-            <Divider />
-            <CardFooter>
-                {authorId != profile.id && <ButtonGroup spacing='2'>
-                    <Button variant='solid' colorScheme='green' onClick={() => {
+                <Stack m="2em">
+                    <Badge
+                        px={2}
+                        py={1}
+                        bg={useColorModeValue('gray.50', 'gray.800')}
+                        fontSize={"1em"}
+                        fontWeight={'200'}>
+                        {new Date(datetime).toLocaleString()}
+                    </Badge>
+                    {attending && <Text fontSize={"3xl"} fontWeight={"black"} color={"green.400"}>Attending</Text>}
+                </Stack>
+
+                {authorId != profile.id && <Stack mt={8} direction={'row'} spacing={4}>
+                    <Button onClick={() => {
                         updateCard(id, profile.id, true)
                         setAttending(true)
-
-                    }}>
+                    }}
+                        flex={1}
+                        fontSize={'sm'}
+                        rounded={'full'}
+                        bg={'green.400'}
+                        color={'white'}
+                    >
                         Yes
                     </Button>
-                    <Button variant='solid' colorScheme='red' onClick={() => {
+                    <Button onClick={() => {
                         updateCard(id, profile.id, false)
                         setAttending(false)
-                    }}>
+
+                    }}
+                        flex={1}
+                        fontSize={'sm'}
+                        rounded={'full'}>
                         No
                     </Button>
-                </ButtonGroup>}
-                {authorId == profile.id && <ButtonGroup spacing='2'>
-                    <Button variant='solid' colorScheme='red' onClick={() => {
+                </Stack>}
+                {authorId == profile.id && <Stack mt={8} direction={'row'} spacing={4}>
+                    <Button onClick={() => {
+                        console.log(id)
                         cancelEvent(id)
-                    }}>Cancel event</Button>
-                </ButtonGroup>}
-
-            </CardFooter>
-        </Card >
-    )
+                    }}
+                        flex={1}
+                        fontSize={'sm'}
+                        rounded={'full'}
+                        _focus={{
+                            bg: 'red.200',
+                        }}>
+                        Cancel event
+                    </Button>
+                </Stack>}
+            </Box>
+        </Center>
+    );
 }
