@@ -23,20 +23,21 @@ export default function Dashboard() {
                 <Box>
                     <SimpleGrid columns={3} spacing={5} display={{ base: "flex", sm: "grid" }} flexDirection={{ base: "column" }} >
                         {mockUpDB.length > 0 && mockUpDB.map(hangout => {
-                            console.log(mockUpDB);
-                            return (<HangoutCard
-                                key={hangout.id}
-                                id={hangout.id}
-                                author={hangout.author}
-                                title={hangout.title}
-                                description={hangout.description}
-                                datetime={hangout.datetime}
-                                location={hangout.location}
-                                attendees={hangout.attending}
-                                authorId={hangout.authorId}
-                                avatar={hangout.avatar}
-                                authorDiscriminator={hangout.discriminator}
-                            />)
+                            return (
+                                <HangoutCard
+                                    key={hangout.id}
+                                    id={hangout.id}
+                                    author={hangout.author}
+                                    title={hangout.title}
+                                    description={hangout.description}
+                                    datetime={hangout.datetime}
+                                    location={hangout.location}
+                                    attendees={hangout.attending}
+                                    authorId={hangout.authorId}
+                                    avatar={hangout.avatar}
+                                    authorDiscriminator={hangout.discriminator}
+                                />
+                            )
                         })}
                     </SimpleGrid>
                 </Box>
