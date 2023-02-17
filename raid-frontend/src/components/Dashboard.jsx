@@ -34,6 +34,8 @@ export default function Dashboard() {
                                 location={hangout.location}
                                 attendees={hangout.attending}
                                 authorId={hangout.authorId}
+                                avatar={hangout.avatar}
+                                authorDiscriminator={hangout.discriminator}
                             />)
                         })}
                     </SimpleGrid>

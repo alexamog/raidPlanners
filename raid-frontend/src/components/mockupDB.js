@@ -6,10 +6,12 @@ export const useDB = create((set) => ({
     mockUpDB: [{
         id: "uuid23432",
         author: "Bry-guy",
-        authorId: "hello",
-        title: "Placeholder",
-        description: "This is a placeholder",
-        datetime: "2023-01-14T05:40",
+        authorId: "100319324333432832",
+        discriminator: "831",
+        avatar: "a57b03dcb179eb2ca827f55fbb828b08",
+        title: "Raid Event",
+        description: "Raid with the boys!",
+        datetime: "2023-01-14T15:40",
         location: "432  Street",
         attending: []
     }],
