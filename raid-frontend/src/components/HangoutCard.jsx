@@ -1,6 +1,13 @@
 import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Image, Divider, ButtonGroup, Button, Text, HStack } from '@chakra-ui/react'
+import { useStore } from '../store';
+import { useDB } from "./mockupDB";
+import { useState } from 'react';
+export default function HangoutCard({ id, author, title, description, datetime, location, attendees, authorId }) {
+    const profile = useStore((state) => state.profile);
+    const updateCard = useDB((store) => store.updateCard);
+    const cancelEvent = useDB((store) => store.deleteCard);
+    const [attending, setAttending] = useState(attendees.includes(profile.id));
 
-export default function HangoutCard({ author, title, description, datetime, location }) {
     return (
         <Card maxW='sm'>
             <CardBody>
@@ -20,24 +27,40 @@ export default function HangoutCard({ author, title, description, datetime, loca
                     <Text>
                         Location: {location}
                     </Text>
+                    <Text>
+                        Attendees: {attendees.length}
+                    </Text>
                     <Text color='blue.600' fontSize='2xl'>
                         Author: {author}
                     </Text>
+                    {attending && <Text color="green.100" fontSize="2xl" fontWeight="bold">
+
+                        Attending</Text>}
                 </Stack>
             </CardBody>
             <Divider />
             <CardFooter>
-                <ButtonGroup spacing='2'>
-                    <Button variant='solid' colorScheme='green'>
+                {authorId != profile.id && <ButtonGroup spacing='2'>
+                    <Button variant='solid' colorScheme='green' onClick={() => {
+                        updateCard(id, profile.id, true)
+                        setAttending(true)
+
+                    }}>
                         Yes
                     </Button>
-                    <Button variant='solid' colorScheme='red'>
+                    <Button variant='solid' colorScheme='red' onClick={() => {
+                        updateCard(id, profile.id, false)
+                        setAttending(false)
+                    }}>
                         No
                     </Button>
-                    <Button variant='solid' colorScheme='yellow'>
-                        Maybe
-                    </Button>
-                </ButtonGroup>
+                </ButtonGroup>}
+                {authorId == profile.id && <ButtonGroup spacing='2'>
+                    <Button variant='solid' colorScheme='red' onClick={() => {
+                        cancelEvent(id)
+                    }}>Cancel event</Button>
+                </ButtonGroup>}
+
             </CardFooter>
         </Card >
     )
