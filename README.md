@@ -29,5 +29,4 @@ Doing this will startup both the front-end and back-end server.
 
 # Future implementation
 
-In the upcoming future we plan on implementing Docker for easy startup. Additionally, we also 
-plan on implementing a Discord bot to remind users through Discord what events are coming up. 
+In the upcoming future we plan on implementing a Discord bot to remind users through Discord what events are coming up. 
