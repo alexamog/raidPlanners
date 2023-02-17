@@ -18,8 +18,8 @@ export default function Footer() {
                 py={10}
                 direction={{ base: 'column', md: 'row' }}
                 spacing={4}
-                justify={{ base: 'center', md: 'space-between' }}
-                align={{ base: 'center', md: 'center' }}>
+                justify={{ md: 'space-between' }}
+                align={{md: 'center' }}>
                 <Text>Raid Planner 2023 | Made with ❤️</Text>
             </Container>
         </Box>
