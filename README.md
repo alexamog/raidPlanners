@@ -19,11 +19,13 @@ Finally, add the discord bot info inside the .env located in the raid-backend fo
 
 You may now run both the front-end and back-end. 
 
-## Running the application
-cd into both directories and enter: 
-`npm run dev`
+### Setting up Docker and running the application
+In this project, we utilize Docker to containerize the microservices. If you do not have Docker installed on your system, please follow the instructions provided [here](https://docs.docker.com/get-started/)
 
-Doing this will either startup the front-end or back-end server.
+Once Docker is successfully installed, navigate to the parent project directory and execute the following command:
+`docker-compose up`
+
+Doing this will startup both the front-end and back-end server.
 
 # Future implementation
 
