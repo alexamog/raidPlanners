@@ -3,7 +3,16 @@ import create from "zustand";
 import produce from "immer";
 
 export const useDB = create((set) => ({
-    mockUpDB: [],
+    mockUpDB: [{
+        id: "uuid23432",
+        author: "Bry-guy",
+        authorId: "hello",
+        title: "Placeholder",
+        description: "This is a placeholder",
+        datetime: "2023-01-14T05:40",
+        location: "432  Street",
+        attending: []
+    }],
     updateCard: (cardId, userId, attending) =>
         set(
             produce((state) => {

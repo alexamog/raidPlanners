@@ -10,11 +10,33 @@ services:
 
   express-backend:
     build: ./raid-backend
+    depends_on:
+      mysql:
+        condition: service_healthy
     ports:
       - "3001:3001"
     networks:
       raidplanners-network:
         ipv4_address: 10.5.0.8
+
+  mysql:
+    image: mysql
+    command: mysqld --default-authentication-plugin=mysql_native_password    
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    volumes:
+      - my-db:/var/lib/mysql
+      - ./mysql/data.sql:/docker-entrypoint-initdb.d/data.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 10
+    networks:
+      raidplanners-network:
+        ipv4_address: 10.5.0.7
 
 volumes:
   my-db:
