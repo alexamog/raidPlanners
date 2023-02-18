@@ -1,37 +1,30 @@
-create database raid;
-flush privileges;
-use raid;
+CREATE DATABASE raid;
+FLUSH PRIVILEGES;
+USE raid;
+CREATE TABLE hangouts(
+    hangout_id INT   NOT NULL AUTO_INCREMENT,
+    hangout_author VARCHAR(16) NOT NULL,
+    hangout_title VARCHAR(32) NOT NULL,
+    hangout_description VARCHAR(128) NOT NULL,
+    hangout_date DATETIME NOT NULL,
+    hangout_location VACHAR(128) NOT NULL,
+    PRIMARY KEY (hangout_id)
+)
 
-create table hangouts (
-    hID                 int not null auto_increment,
-    hAuthor    varchar( 16) not null,
-    hTitle     varchar( 32) not null,
-    hDesc      varchar(128),
-    hDate          datetime not null,
-    hLocation  varchar(128),
-    hAttendees        int[]        
+CREATE TABLE users(
+    user_id VARCHAR(255) NOT NULL,
+    user_avatar VARCHAR(255) NOT NULL,
+    user_discriminator VARCHAR(5) NOT NULL,
+    PRIMARY KEY (user_id)
+)
 
-    primary key (hangoutID)
-);
+CREATE TABLE hangout_attendees(
+    hangout_id INT NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY (hangout_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (hangout_id) REFERENCES hangouts(hangout_id)    
+)
 
-create table users (
-    userID           int not null,
-    userName varchar(16) unique not null,
-
-    primary key (userID)
-);
-
-insert into users (            userID,     userName)
-values            (000000000000000000, 'user0#0000');
-
-insert into hangouts (     hAuthor,          hTitle,                  hDate)
-values               ('sbgum#7161', 'sample hangout', '2023-08-13 12:00:00');
-
-create user 'raid-user'@'%'
-identified by 'raiduser-0000';
-
-grant all privileges on raid.*
-to 'raid-user'@'%'
-with grant option;
-
-flush privileges;
+CREATE USER 'raid-user'@'%' IDENTIFIED BY 'raiduser-0000';
+GRANT ALL PRIVILEGES ON raid.* TO 'raid-user'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
