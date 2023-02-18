@@ -1,3 +1,6 @@
+const conn = require ("../../mysql/data");
+const { query } = require("../db-conn");
+
 const fakeDB = [
     {
         id: "1",
@@ -24,6 +27,7 @@ const fakeDB = [
         attending: [165897917004120064]
     }
 ]
+
 const dbController = {
     getAll: (req,res)=>{
         res.send()
@@ -48,7 +52,75 @@ const dbController = {
             location: "432  Street",
             attending: []
         });
-    }
+    },
+
+    /** 
+     * gets a hangout object by id
+     * 
+     * @param {string} id 
+     * @returns {Hangout} A hangout object of the matching ID
+     */
+     getHangoutByID: (req, res) =>  {
+        qText = "select * from `hangouts` where `id` = ?";
+        vals  = [req.id]
+
+        conn.query(qText, vals,             
+        (err, result) => {
+            if (err) {
+                return res.json(err);
+            };
+
+            if (result.length < 1 ) {
+                return res.json("Hangout does not exist.");
+            };
+
+            return res.json(result);
+        });
+    },
+
+    getHangoutsByTitle: (req, res) =>  {
+        qText = "select * from `hangouts` where title like %?%";
+        vals  = [req.title]
+
+        conn.query(qText, vals,             
+        (err, result) => {
+            if (err) {
+                return res.json(err);
+            };
+
+            if (result.length < 1 ) {
+                return res.json("Hangout does not exist.");
+            };
+
+            return res.json(result);
+        });
+    },
+
+    getHangoutsByDate: (req, res) => {
+        qText = "select * from `hangouts` where datetime >= ?T00:00:00.000 \
+                                            and datetime <= ?T23:59:59.999";
+
+        // No need to specify time; 
+        vals  = [req.day]
+
+        conn.query(qText, vals,             
+        (err, result) => {
+            if (err) {
+                return res.json(err);
+            };
+
+            if (result.length < 1 ) {
+                return res.json("Hangout does not exist.");
+            };
+
+            return res.json(result);
+        });
+    },
+
+    // void
+    addHangout: (res, req) => {
+        
+    },
 };
 
 module.exports = dbController;
