@@ -4,17 +4,17 @@ import produce from "immer";
 
 export const useDB = create((set) => ({
     mockUpDB: [{
-        id: "1",
+        id: "12",
         author: "Bry-guy",
         authorId: "100319324333432832",
         discriminator: "831",
         avatar: "a57b03dcb179eb2ca827f55fbb828b08",
         title: "Raid Event",
         description: "Raid with the boys!",
-        datetime: "2023-01-14T15:40",
-        location: "432  Street",
-        attending: []
-    }],
+        datetime: "2023-02-21T15:40",
+        location: "98311 Young more ave.",
+        attending: ["100319324333432832"]
+      }],
     updateCard: (cardId, userId, attending) =>
         set(
             produce((state) => {
