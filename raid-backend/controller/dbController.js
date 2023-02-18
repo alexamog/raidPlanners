@@ -83,7 +83,7 @@ const dbController = {
 
     // void
     addHangout: (res, req) => {
-        
+ 
     },
 };
 
