@@ -13,11 +13,16 @@ import {
     useColorModeValue,
 } from '@chakra-ui/react';
 
-export default function HangoutCard({ id, author, title, description, datetime, location, attendees, authorId }) {
+import { useMatch } from '@tanstack/react-location';
+
+export default function ViewCard() {
+    const {
+        data: { card },
+    } = useMatch()
     const profile = useStore((state) => state.profile);
     const updateCard = useDB((store) => store.updateCard);
     const cancelEvent = useDB((store) => store.deleteCard);
-    const [attending, setAttending] = useState(attendees.includes(profile.id));
+    const [attending, setAttending] = useState(card.attending.includes(profile.id));
     return (
         <Center py={6}>
             <Box
@@ -27,24 +32,29 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                 boxShadow={'2xl'}
                 rounded={'lg'}
                 p={6}
-                textAlign={'center'}>
+                textAlign={'center'}
+                justify={{ base: "center", md: "space-around", xl: "space-between" }}
+                direction={{ base: "column-reverse", md: "row" }}
+                wrap="no-wrap"
+                px={8}
+                mb={16}>
                 <Avatar
                     size={'xl'}
                     src={
-                        `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.png`
+                        `https://cdn.discordapp.com/avatars/${card.authorId}/${card.avatar}.png`
                     }
                     alt={'Avatar Alt'}
                     mb={4}
                     pos={'relative'}
                 />
                 <Heading fontSize={'2xl'} fontFamily={'body'}>
-                    {title}
+                    Query param id: {card.id}
                 </Heading>
                 <Text fontWeight={600} color={'gray.500'} mb={4}>
-                    @{profile.username}#{profile.discriminator}
+                    @{card.author}#{card.authorDiscriminator}
                 </Text>
                 <Text>
-                    {description}
+                    {card.description}
                 </Text>
 
                 <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
@@ -54,16 +64,17 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                         bg={"blue.700"}
                         fontWeight={'400'}
                         color={"white"}
-
                     >
-                        Attendees: {attendees.length}
+                        Attendees: {card.attending.length}
                     </Badge>
                     <Badge
                         px={2}
                         py={1}
                         bg={"purple.700"}
-                        fontWeight={'400'}>
-                        {location}
+                        fontWeight={'400'}
+                        color={"white"}
+                        >
+                        {card.location}
                     </Badge>
 
                 </Stack>
@@ -73,17 +84,15 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                         py={1}
                         bg={useColorModeValue('gray.50', 'gray.800')}
                         fontSize={"1em"}
-                        fontWeight={'200'}
-                        color={"white"}
-                    >
-                        {new Date(datetime).toLocaleString()}
+                        fontWeight={'200'}>
+                        {new Date(card.datetime).toLocaleString()}
                     </Badge>
                     {attending && <Text fontSize={"3xl"} fontWeight={"black"} color={"green.400"}>Attending</Text>}
                 </Stack>
 
-                {authorId != profile.id && <Stack mt={8} direction={'row'} spacing={4}>
+                {card.authorId != profile.id && profile.username != null && <Stack mt={8} direction={'row'} spacing={4}>
                     <Button onClick={() => {
-                        updateCard(id, profile.id, true)
+                        updateCard(card.id, profile.id, true)
                         setAttending(true)
                     }}
                         flex={1}
@@ -95,7 +104,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                         Yes
                     </Button>
                     <Button onClick={() => {
-                        updateCard(id, profile.id, false)
+                        updateCard(card.id, profile.id, false)
                         setAttending(false)
 
                     }}
@@ -105,7 +114,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                         No
                     </Button>
                 </Stack>}
-                {authorId == profile.id && <Stack mt={8} direction={'row'} spacing={4}>
+                {card.authorId == profile.id && <Stack mt={8} direction={'row'} spacing={4}>
                     <Button onClick={() => {
                         console.log(id)
                         cancelEvent(id)

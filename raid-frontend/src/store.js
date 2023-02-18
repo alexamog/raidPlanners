@@ -2,22 +2,20 @@ import create from "zustand";
 import produce from "immer";
 
 export const useStore = create((set) => ({
-    token: null,
     profile: {
-        name: "Developer",
-        avatar: ""
+        username: null,
+        avatar: null,
+        id: null,
+        discriminator: null
     },
-    setToken: (token) => set(
-        produce((state) => {
-            state.token = token;
-        })
-    ),
     setProfile: (profile) =>
         set(
             produce((state) => {
                 state.profile = {
-                    "name": profile.firstName,
-                    "avatar": profile.avatar
+                    username: profile.username,
+                    avatar: profile.profilePicture,
+                    id: profile.id,
+                    discriminator: profile.discriminator
                 }
             })
         ),

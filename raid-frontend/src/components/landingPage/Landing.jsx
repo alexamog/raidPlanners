@@ -1,5 +1,5 @@
 import React from "react";
-
+import DiscordButton from "../socialButtons/DiscordButton";
 import Hero from "./Hero";
 import LandingLayout from "./LandingLayout";
 export default function Landing() {

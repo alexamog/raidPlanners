@@ -1,21 +1,4 @@
-const database = [
-    {
-        "id": "1",
-        "username": "bleulenny",
-        "email": "aamog@my.bcit.ca",
-        "password": "123",
-        "firstName": "Alex",
-        "lastName": "Amog"
-    },  
-    {
-        "id": "2",
-        "username": "bryancampos",
-        "email": "bryancampos@gmail.com",
-        "password": "123",
-        "firstName": "Bryan",
-        "lastName": "Campos"
-    },
-]
+const database = []
 
 const userModel = {
     findOne: (email) => {
@@ -30,7 +13,16 @@ const userModel = {
         if (user) {
             return user;
         }
-        return new Error(`Couldn't find user with id: ${id}`);
+        return null;
+    },
+
+    addUser: (profile) => {
+        database.push({
+            id: profile.id,
+            profilePicture: profile.avatar,
+            username: profile.username,
+            discriminator: profile.discriminator
+        })
     }
 };
 

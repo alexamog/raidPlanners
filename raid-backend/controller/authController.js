@@ -15,6 +15,9 @@ const authController = {
     register: (req, res) => {
         res.render("/register");
     },
+    checkUser: (req, res) => {
+        res.send(req.user);
+    },
     registerSubmit: (req, res) => {
         const userInput = req.body;
         database.push({
@@ -30,11 +33,17 @@ const authController = {
         successRedirect: "/successMock",
         failureRedirect: "/errorMock",
     }),
+    discordLogin: passport.authenticate("discord"),
+    discordCB: passport.authenticate("discord", {
+        successRedirect: "http://localhost:5173/hangouts",
+        failureRedirect: "/errorMock",
+    }),
 
     logout: (req, res, next) => {
+        // Set token to none and expire after 5 seconds
         req.logout(function (err) {
             if (err) { return next(err); }
-            res.send("Logged out.")
+            res.redirect('/');
         });
     },
 };

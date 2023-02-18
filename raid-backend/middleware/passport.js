@@ -1,25 +1,25 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const DiscordStrategy = require('passport-discord').Strategy;
 const userController = require("../controller/userController");
 const process = require("process");
 const dotenv = require('dotenv');
 dotenv.config();
 
-const localLogin = new LocalStrategy(
+const discordLogin = new DiscordStrategy(
     {
-        usernameField: "email",
-        passwordField: "password",
+        clientID: process.env.CLIENT_ID,
+        clientSecret: process.env.TOKEN_SECRET,
+        callbackURL: process.env.CALLBACK_URL,
+        scope: ['identify', 'email']
     },
-    (email, password, done) => {
-        const user = userController.getUserByEmailIdAndPassword(email, password);
-        return user
-            ? done(null, user)
-            : done(null, false, {
-                message: "Your login details are not valid. Please try again",
-            });
+    function (accessToken, refreshToken, profile, done) {
+        const user = userController.getUserByIdOrAdd(profile)
+        if (user != null) {
+            return done(null, user);
+        }
     }
-);
-
+)
 passport.serializeUser((user, done) => {
     done(null, user.id);
 });
@@ -33,4 +33,4 @@ passport.deserializeUser((id, done) => {
     }
 });
 
-module.exports = passport.use(localLogin);
+module.exports = passport.use(discordLogin);

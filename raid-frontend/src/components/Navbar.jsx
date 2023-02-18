@@ -16,10 +16,29 @@ import {
     Heading,
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { useStore } from "../store";
+import axios from 'axios';
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
+    const setProfile = useStore((store) => store.setProfile);
+    const profile = useStore((state) => state.profile);
+    const [auth, setAuth] = useState(false)
     const navigate = useNavigate();
     const { colorMode, toggleColorMode } = useColorMode();
+    useEffect(() => {
+        axios.get("http://localhost:3001/auth/user", { withCredentials: true })
+            .then((resp) => {
+                console.log(resp.data)
+                if (resp.data != "Not logged in") {
+                    setProfile(resp.data)
+                    setAuth(true)
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, []);
     return (
         <>
             <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
@@ -37,7 +56,7 @@ export default function Navbar() {
                                 {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
                             </Button>
 
-                            <Menu>
+                            {auth && <Menu>
                                 <MenuButton
                                     as={Button}
                                     rounded={'full'}
@@ -46,7 +65,7 @@ export default function Navbar() {
                                     minW={0}>
                                     <Avatar
                                         size={'sm'}
-                                        src={'https://avatars.dicebear.com/api/male/username.svg'}
+                                        src={`https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.png`}
                                     />
                                 </MenuButton>
                                 <MenuList alignItems={'center'}>
@@ -54,24 +73,25 @@ export default function Navbar() {
                                     <Center>
                                         <Avatar
                                             size={'2xl'}
-                                            src={'https://avatars.dicebear.com/api/male/username.svg'}
+                                            src={`https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.png`}
                                         />
                                     </Center>
                                     <br />
                                     <Center>
-                                        <p>Developer</p>
+                                        <p>{profile.username}</p>
                                     </Center>
                                     <br />
                                     <MenuDivider />
                                     <MenuItem onClick={() => navigate({ to: "/hangouts", replace: true })}>Hangouts</MenuItem>
                                     <MenuItem onClick={() => navigate({ to: "/create", replace: true })}>Create Hangout</MenuItem>
-                                    <MenuItem onClick={(() => {
-                                        alert("You don't get to log out yet hehe (functionality not implemented yet.)");
+                                    <MenuItem onClick={() => {
+                                        axios.get("http://localhost:3001/auth/logout", { withCredentials: true })
                                         navigate({ to: "/", replace: true })
-                                    })
-                                    }>Logout</MenuItem>
+                                        window.location.reload();
+                                    }}>Logout</MenuItem>
                                 </MenuList>
                             </Menu>
+                            }
                         </Stack>
                     </Flex>
                 </Flex>

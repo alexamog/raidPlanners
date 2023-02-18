@@ -4,17 +4,20 @@ import PropTypes from "prop-types";
 import {
     Box,
     Button,
+    Center,
     Flex,
     Image,
     Heading,
     Stack,
     Text
 } from "@chakra-ui/react";
-import DiscordButton from "../socialButtons/DiscordButton";
+import { useStore } from "../../store";
+import { FaDiscord } from 'react-icons/fa';
+
 
 export default function Hero({ title, subtitle, image, ctaLink, ctaText, ...rest }) {
     const navigate = useNavigate();
-
+    const profile = useStore((state) => state.profile);
     return (
         <Flex
             align="center"
@@ -51,9 +54,23 @@ export default function Hero({ title, subtitle, image, ctaLink, ctaText, ...rest
                 >
                     {subtitle}
                 </Heading>
-                <Button onClick={() => { navigate({ to: "/create", replace: true }) }} variant='solid' colorScheme='green'>
+                {profile.username == null && <Button onClick={() => {
+                    window.location.href = "http://localhost:3001/auth/discord";
+                }}
+                    w={'full'}
+                    maxW={'md'}
+                    colorScheme={'facebook'}
+                    leftIcon={<FaDiscord />}>
+                    <Center>
+                        <Text>Continue with Discord</Text>
+                    </Center>
+                </Button>}
+                {profile.username != null && <Button                     w={'full'}
+                    maxW={'md'} onClick={() => { navigate({ to: "/create", replace: true }) }} variant='solid' colorScheme='green'>
                     Get started
-                </Button>
+                </Button>}
+
+
 
             </Stack>
             <Box w={{ base: "80%", sm: "60%", md: "50%" }} mb={{ base: 12, md: 0 }}>
