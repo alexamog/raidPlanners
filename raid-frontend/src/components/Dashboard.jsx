@@ -4,6 +4,7 @@ import { useStore } from "../store";
 import Landing from "./landingPage/Landing"
 import { useDB } from "./mockupDB";
 import { Text } from "@chakra-ui/react"
+import { useEffect } from "react";
 
 export default function Dashboard() {
     const profile = useStore((state) => state.profile);
@@ -11,6 +12,9 @@ export default function Dashboard() {
     if (profile.username == null) {
         return <Landing />
     }
+    useEffect(() => {
+        console.log("useEffect load")
+      }, []);
     return (
         <Box align="center"
             justify={{ base: "center", md: "space-around", xl: "space-between" }}

@@ -2,7 +2,16 @@ const conn = require ("../../mysql/data");
 const { query } = require("../db-conn");
 
 const dbController = {
-    db: (req, res) => {
+    getAll: (req,res)=>{
+        res.send()
+    },
+    addCard: (req,res)=>{
+        res.send("Add card route")
+    },
+    updateCard: (req,res)=>{
+        res.send("update Card")
+    },
+    findOne: (req, res) => {
         const id = req.params.id
         res.send({
             id: id,

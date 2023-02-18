@@ -13,7 +13,7 @@ import {
     useColorModeValue,
 } from '@chakra-ui/react';
 
-export default function HangoutCard({ id, author, title, description, datetime, location, attendees, authorId }) {
+export default function HangoutCard({ id, author, title, description, datetime, location, attendees, authorId, avatar,authorDiscriminator }) {
     const profile = useStore((state) => state.profile);
     const updateCard = useDB((store) => store.updateCard);
     const cancelEvent = useDB((store) => store.deleteCard);
@@ -31,7 +31,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                 <Avatar
                     size={'xl'}
                     src={
-                        `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.png`
+                        `https://cdn.discordapp.com/avatars/${authorId}/${avatar}.png`
                     }
                     alt={'Avatar Alt'}
                     mb={4}
@@ -41,7 +41,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                     {title}
                 </Heading>
                 <Text fontWeight={600} color={'gray.500'} mb={4}>
-                    @{profile.username}#{profile.discriminator}
+                    @{author}#{authorDiscriminator}
                 </Text>
                 <Text>
                     {description}
