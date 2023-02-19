@@ -1,5 +1,4 @@
 const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
 const DiscordStrategy = require('passport-discord').Strategy;
 const userController = require("../controller/userController");
 const process = require("process");
@@ -13,7 +12,7 @@ const discordLogin = new DiscordStrategy(
         callbackURL: process.env.CALLBACK_URL,
         scope: ['identify', 'email']
     },
-    function (accessToken, refreshToken, profile, done) {
+    (accessToken, refreshToken, profile, done) => {
         const user = userController.getUserByIdOrAdd(profile)
         if (user != null) {
             return done(null, user);

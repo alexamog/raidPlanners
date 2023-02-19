@@ -24,7 +24,7 @@ export default function CreatePlan() {
         e.preventDefault();
         await axios.post("http://localhost:3001/db/addcard", cardInfo)
             .then((resp) => {
-                console.log(resp)
+                navigate({ to: "/hangouts", replace: true })
             })
             .catch((error) => {
                 console.log(error);
