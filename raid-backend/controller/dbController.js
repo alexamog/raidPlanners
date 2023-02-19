@@ -1,5 +1,4 @@
-const conn = require ("../../mysql/data");
-const { query } = require("../db-conn");
+const { conn } = require("../db-conn");
 
 const fakeDB = [
     {
@@ -29,13 +28,13 @@ const fakeDB = [
 ]
 
 const dbController = {
-    getAll: (req,res)=>{
+    getAll: (req, res) => {
         res.send()
     },
-    addCard: (req,res)=>{
+    addCard: (req, res) => {
         res.send("Add card route")
     },
-    updateCard: (req,res)=>{
+    updateCard: (req, res) => {
         res.send("update Card")
     },
     findOne: (req, res) => {
@@ -54,94 +53,94 @@ const dbController = {
         });
     },
 
-    getHangoutByID: (req, res) =>  {
+    getHangoutByID: (req, res) => {
         const qText = "select * from `hangouts` where `id` = ?";
-        const qVals  = [req.id];
+        const qVals = [req.id];
 
-        conn.query(qText, qVals,             
-        (err, result) => {
-            if (err) {
-                return res.json(err);
-            };
+        conn.query(qText, qVals,
+            (err, result) => {
+                if (err) {
+                    return res.json(err);
+                };
 
-            if (result.length < 1 ) {
-                return res.json("Hangout does not exist.");
-            };
+                if (result.length < 1) {
+                    return res.json("Hangout does not exist.");
+                };
 
-            return res.json(result);
-        });
+                return res.json(result);
+            });
     },
 
-    getHangoutsByTitle: (req, res) =>  {
+    getHangoutsByTitle: (req, res) => {
         const qText = "select * from `hangouts` where title like %?%";
-        const qVals  = [req.title];
+        const qVals = [req.title];
 
-        conn.query(qText, qVals,             
-        (err, result) => {
-            if (err) {
-                return res.json(err);
-            };
+        conn.query(qText, qVals,
+            (err, result) => {
+                if (err) {
+                    return res.json(err);
+                };
 
-            if (result.length < 1 ) {
-                return res.json("Hangout does not exist.");
-            };
+                if (result.length < 1) {
+                    return res.json("Hangout does not exist.");
+                };
 
-            return res.json(result);
-        });
+                return res.json(result);
+            });
     },
 
     getHangoutsByDate: (req, res) => {
         const qText = "select * from `hangouts` where datetime >= ?T00:00:00.000 \
                                                   and datetime <= ?T23:59:59.999";
         // No need to specify time; 
-        const qVals  = [req.day];
+        const qVals = [req.day];
 
-        conn.query(qText, qVals,             
-        (err, result) => {
-            if (err) {
-                return res.json(err);
-            };
+        conn.query(qText, qVals,
+            (err, result) => {
+                if (err) {
+                    return res.json(err);
+                };
 
-            if (result.length < 1 ) {
-                return res.json("Hangout does not exist.");
-            };
+                if (result.length < 1) {
+                    return res.json("Hangout does not exist.");
+                };
 
-            return res.json(result);
-        });
+                return res.json(result);
+            });
     },
 
     // void
     addHangout: (res, req) => {
         const qText = "select `hTitle` from `hangouts` where title like ?";
-        const qVals  = [req.title];
+        const qVals = [req.title];
 
-        conn.query(qText, qVals,             
-        (err, result) => {
-            if (err) {
-                return res.json(err);
-            };
+        conn.query(qText, qVals,
+            (err, result) => {
+                if (err) {
+                    return res.json(err);
+                };
 
-            if (result.length > 0) {
-                return res.status(400).json("Hangout with the same name already exists.");
-            };
+                if (result.length > 0) {
+                    return res.status(400).json("Hangout with the same name already exists.");
+                };
 
-            const qqText = "insert into hangouts (hAuthor, hTitle, hDesc, hDate, hLocation)\
+                const qqText = "insert into hangouts (hAuthor, hTitle, hDesc, hDate, hLocation)\
                                         values   (?)"
-            const qqVals  = [req.hAuthor, 
-                            req.hTitle, 
-                            req.hDesc, 
-                            req.hDate, 
-                            req.hLocation]
+                const qqVals = [req.hAuthor,
+                req.hTitle,
+                req.hDesc,
+                req.hDate,
+                req.hLocation]
 
-            conn.query(qqText, qqVals,
-                (err, result) => {
-                    if (err) {
-                        return res.status(200).json(err);
-                    };
+                conn.query(qqText, qqVals,
+                    (err, result) => {
+                        if (err) {
+                            return res.status(200).json(err);
+                        };
 
-                    return res.json("Hangout added.")
-                });
-        });
+                        return res.json("Hangout added.")
+                    });
+            });
     },
 };
 
