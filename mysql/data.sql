@@ -13,7 +13,8 @@ CREATE TABLE hangouts(
 );
 
 CREATE TABLE users(
-    user_id INT NOT NULL AUTO_INCREMENT,
+    user_id VARCHAR(255) NOT NULL,
+    user_name VARCHAR(255) NOT NULL,
     user_avatar VARCHAR(255) NOT NULL,
     user_discriminator VARCHAR(5) NOT NULL,
     PRIMARY KEY (user_id)
@@ -21,7 +22,7 @@ CREATE TABLE users(
 
 CREATE TABLE attendees(
     attendees_id INT NOT NULL AUTO_INCREMENT,
-    user_id INT NOT NULL,
+    user_id VARCHAR(255) NOT NULL,
     hangout_id INT NOT NULL,
     PRIMARY KEY (attendees_id),
     FOREIGN KEY (user_id) REFERENCES users(user_id),
