@@ -1,20 +1,26 @@
-import { SimpleGrid, Box, VStack, Heading, HStack } from "@chakra-ui/react"
+import { SimpleGrid, Box, VStack, HStack } from "@chakra-ui/react"
 import HangoutCard from "./HangoutCard"
 import { useStore } from "../store";
 import Landing from "./landingPage/Landing"
-import { useDB } from "./mockupDB";
 import { Text } from "@chakra-ui/react"
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from 'axios';
 
 export default function Dashboard() {
     const profile = useStore((state) => state.profile);
-    const mockUpDB = useDB((state) => state.mockUpDB);
+    const [cardsList, setCardsList] = useState([]);
     if (profile.username == null) {
         return <Landing />
     }
     useEffect(() => {
-        console.log("useEffect load")
-      }, []);
+        axios.get("http://localhost:3001/db/getall")
+            .then((resp) => {
+                setCardsList(resp.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, []);
     return (
         <Box align="center"
             justify={{ base: "center", md: "space-around", xl: "space-between" }}
@@ -26,26 +32,26 @@ export default function Dashboard() {
             <VStack>
                 <Box>
                     <SimpleGrid columns={3} spacing={5} display={{ base: "flex", sm: "grid" }} flexDirection={{ base: "column" }} >
-                        {mockUpDB.length > 0 && mockUpDB.map(hangout => {
+                        {cardsList.length > 0 && cardsList.map(hangout => {
                             return (
                                 <HangoutCard
-                                    key={hangout.id}
-                                    id={hangout.id}
-                                    author={hangout.author}
-                                    title={hangout.title}
-                                    description={hangout.description}
-                                    datetime={hangout.datetime}
-                                    location={hangout.location}
-                                    attendees={hangout.attending}
-                                    authorId={hangout.authorId}
-                                    avatar={hangout.avatar}
-                                    authorDiscriminator={hangout.discriminator}
+                                    key={hangout.hangout_id}
+                                    id={hangout.hangout_id}
+                                    author="Placeholder for now"
+                                    title={hangout.hangout_title}
+                                    description={hangout.hangout_description}
+                                    datetime={hangout.hangout_date}
+                                    location={hangout.hangout_location}
+                                    attendees={["1", "2", "3"]}
+                                    authorId={hangout.hangout_authorId}
+                                    avatar={""}
+                                    authorDiscriminator={"mock"}
                                 />
                             )
                         })}
                     </SimpleGrid>
                 </Box>
-                {mockUpDB.length == 0 &&
+                {cardsList.length == 0 &&
                     <VStack>
                         <SimpleGrid columns={1} spacing={5} display={{ base: "flex", sm: "grid" }} flexDirection={{ base: "column" }} >
                             <HStack>

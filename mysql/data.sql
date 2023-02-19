@@ -4,7 +4,7 @@ USE raid;
 
 CREATE TABLE hangouts(
     hangout_id INT NOT NULL AUTO_INCREMENT,
-    hangout_author VARCHAR(16) NOT NULL,
+    hangout_authorId VARCHAR(255) NOT NULL,
     hangout_title VARCHAR(32) NOT NULL,
     hangout_description VARCHAR(128) NOT NULL,
     hangout_date DATETIME NOT NULL,

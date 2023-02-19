@@ -1,4 +1,4 @@
-const { conn } = require("../db-conn");
+const conn = require("../db-conn");
 
 const fakeDB = [
     {
@@ -29,28 +29,34 @@ const fakeDB = [
 
 const dbController = {
     getAll: (req, res) => {
-        res.send()
+        const preparedStatement = "SELECT * FROM hangouts";
+        conn.query(preparedStatement, (err, result) => {
+            if (err) {
+                res.status(500).json(err)
+            }
+            return res.json(result)
+        })
     },
     addCard: (req, res) => {
-        res.send("Add card route")
+        const preparedStatement = "INSERT INTO hangouts(`hangout_authorId`, `hangout_title`, `hangout_description`,`hangout_date`,`hangout_location`) VALUES (?,?,?,?,?)";
+        const hangoutVals = []
+
+        for (const [key, value] of Object.entries(req.body)) {
+            hangoutVals.push(value)
+        }
+
+        conn.query(preparedStatement, hangoutVals, (err, result) => {
+            if (err) {
+                return res.status(500).json(err);
+            }
+            return res.json(result)
+        })
     },
     updateCard: (req, res) => {
         res.send("update Card")
     },
     findOne: (req, res) => {
         const id = req.params.id
-        res.send({
-            id: id,
-            author: "Bry-guy",
-            authorId: "100319324333432832",
-            discriminator: "831",
-            avatar: "a57b03dcb179eb2ca827f55fbb828b08",
-            title: "Raid Event",
-            description: "Raid with the boys!",
-            datetime: "2023-01-14T15:40",
-            location: "432  Street",
-            attending: []
-        });
     },
 
     getHangoutByID: (req, res) => {

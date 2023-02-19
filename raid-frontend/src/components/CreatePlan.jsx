@@ -4,6 +4,7 @@ import { useStore } from "../store";
 import { useDB } from "./mockupDB";
 import Landing from "../components/landingPage/Landing"
 import { useNavigate } from "@tanstack/react-location";
+import axios from 'axios';
 
 
 export default function CreatePlan() {
@@ -12,22 +13,27 @@ export default function CreatePlan() {
     const addCard = useDB((store) => store.addCard);
     const cardRef = useRef();
     const [cardInfo, setCardInfo] = useState({
-        title: null,
-        author: profile.username,
         authorId: profile.id,
+        title: null,
         desc: null,
         datetime: null,
         location: null,
-        attending: [profile.id]
     });
-    const onSubmit = (e) => {
-        e.preventDefault()
-        addCard(cardInfo)
-        navigate({ to: "/hangouts", replace: true })
+
+    const handleClick = async (e) => {
+        e.preventDefault();
+        await axios.post("http://localhost:3001/db/addcard", cardInfo)
+            .then((resp) => {
+                console.log(resp)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
     if (profile.username == null) {
         return <Landing />
     }
+
     return (
         <div>
             <VStack>
@@ -36,9 +42,9 @@ export default function CreatePlan() {
                         justify={{ base: "center", md: "space-around", xl: "space-between" }}
                         direction={{ base: "column-reverse", md: "row" }}
                         mb={16}
-                        >
+                    >
                         <form ref={cardRef} onSubmit={(e) => {
-                            onSubmit(e);
+                            handleClick(e);
                         }}>
                             <CardBody textAlign={"center"} bg={useColorModeValue('white', 'gray.900')} >
                                 <Stack mt='6' spacing='3'>
@@ -80,7 +86,6 @@ export default function CreatePlan() {
                                         Reset
                                     </Button>
                                 </ButtonGroup>
-
                             </CardFooter>
                         </form>
                     </Card>
