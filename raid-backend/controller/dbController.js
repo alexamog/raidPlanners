@@ -14,7 +14,7 @@ const dbController = {
         const preparedStatement = "INSERT INTO hangouts(`hangout_authorId`, `hangout_title`, `hangout_description`,`hangout_date`,`hangout_location`) VALUES (?,?,?,?,?)";
         const hangoutVals = []
 
-        for (const [key, value] of Object.entries(req.body)) {
+        for (const value of Object.values(req.body)) {
             hangoutVals.push(value)
         }
 
