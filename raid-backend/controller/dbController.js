@@ -10,26 +10,68 @@ const dbController = {
             return res.json(result)
         })
     },
+    addAttendee: (req,res) =>{
+        const attendeesVals = [req.body.userId, req.body.hangoutId];
+        const preparedStatement = "INSERT INTO attendees(`user_id`,`hangout_id`) VALUES (?,?)";
+
+        //Check if user is already added  
+        conn.query("SELECT * FROM attendees WHERE user_id = ? AND hangout_id = ?",attendeesVals,(err,result)=>{
+            if(err){
+                res.status(500).json(err);
+            }
+            if(result.length == 0){
+                conn.query(preparedStatement,attendeesVals, (err,result)=>{
+                    if(err){
+                        res.status(500).json(err);
+                    }
+                    res.status(200).json(result);
+                })
+            }
+            else{
+                res.status(400).send("User Already added.")
+            }
+        })
+    },
+    deleteAttendee: (req,res) =>{
+        const preparedStatement = "DELETE FROM attendees WHERE user_id = ? AND hangout_id = ?";
+        const attendeesVals = [req.body.userId, req.body.hangoutId];
+        conn.query(preparedStatement,attendeesVals, (err,result)=>{
+            if(err){
+                res.status(500).json(err);
+            }
+            res.status(200).json(result);
+        })
+    },
     addCard: (req, res) => {
         const preparedStatement = "INSERT INTO hangouts(`hangout_authorId`, `hangout_title`, `hangout_description`,`hangout_date`,`hangout_location`) VALUES (?,?,?,?,?)";
-        const hangoutVals = []
+        const preparedStatementInsert = "INSERT INTO attendees(`user_id`,`hangout_id`) VALUES (?,?)";
 
+        const hangoutVals = [];
         for (const value of Object.values(req.body)) {
-            hangoutVals.push(value)
+            hangoutVals.push(value);
         }
 
         conn.query(preparedStatement, hangoutVals, (err, result) => {
             if (err) {
                 return res.status(500).json(err);
             }
-            return res.json(result)
+            conn.query(preparedStatementInsert, [req.body.authorId,result.insertId], (err, result) => {
+                if (err) {
+                    return res.status(500).json(err);
+                }
+                return res.send.status(200).json(result)
+            })
         })
+
     },
     updateCard: (req, res) => {
         res.send("update Card")
     },
     findOne: (req, res) => {
         const id = req.params.id
+    },
+    dropCard: (req,res) =>{
+        const preparedStatement = ""
     },
 
     getHangoutByID: (req, res) => {
