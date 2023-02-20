@@ -1,5 +1,4 @@
 import { useStore } from '../store';
-import { useDB } from "./mockupDB";
 import { useState } from 'react';
 import {
     Heading,
@@ -16,7 +15,6 @@ import axios from 'axios';
 
 export default function HangoutCard({ id, author, title, description, datetime, location, attendees, authorId, avatar,authorDiscriminator }) {
     const profile = useStore((state) => state.profile);
-    const cancelEvent = useDB((store) => store.deleteCard);
     const [attending, setAttending] = useState(attendees.includes(profile.id));
 
     const deleteCard = async (hangoutId) =>{
