@@ -71,7 +71,13 @@ const dbController = {
         const id = req.params.id
     },
     dropCard: (req,res) =>{
-        const preparedStatement = ""
+        const preparedStatement = "DELETE FROM hangouts WHERE hangout_id = ?";
+        conn.query(preparedStatement,req.body.cardId,(err,result)=>{
+            if(err){
+                res.status(500).json(err);
+            }
+            res.json(result);
+        })
     },
 
     getHangoutByID: (req, res) => {

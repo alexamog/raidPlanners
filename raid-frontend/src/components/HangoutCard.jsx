@@ -12,12 +12,49 @@ import {
     Badge,
     useColorModeValue,
 } from '@chakra-ui/react';
+import axios from 'axios';
 
 export default function HangoutCard({ id, author, title, description, datetime, location, attendees, authorId, avatar,authorDiscriminator }) {
     const profile = useStore((state) => state.profile);
-    const updateCard = useDB((store) => store.updateCard);
     const cancelEvent = useDB((store) => store.deleteCard);
     const [attending, setAttending] = useState(attendees.includes(profile.id));
+
+    const deleteCard = async (hangoutId) =>{
+        await axios.post("http://localhost:3001/db/dropCard",{cardId: hangoutId},{withCredentials: true})
+        .then((resp)=>{
+            console.log(resp.data)
+        })
+        .catch((err)=>{
+            console.log(err.data)
+        })
+    }
+
+    const handleClick = async (hangoutId, authorId, attending) =>{
+        if(attending){
+            await axios.post("http://localhost:3001/db/addAttendee",{
+            userId: authorId,
+            hangoutId: hangoutId
+        }, {withCredentials: true})
+        .then((resp)=>{
+            console.log(resp.data)
+        })
+        .catch((err)=>{
+            console.log(err.data)
+        })
+        }
+        if(!attending){
+            await axios.post("http://localhost:3001/db/deleteAttendee",{
+            userId: authorId,
+            hangoutId: hangoutId
+        }, {withCredentials: true})
+        .then((resp)=>{
+            console.log(resp.data)
+        })
+        .catch((err)=>{
+            console.log(err.data)
+        })
+        }
+    }
     return (
         <Center py={6}>
             <Box
@@ -83,7 +120,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
 
                 {authorId != profile.id && <Stack mt={8} direction={'row'} spacing={4}>
                     <Button onClick={() => {
-                        updateCard(id, profile.id, true)
+                        handleClick(id, profile.id, true)
                         setAttending(true)
                     }}
                         flex={1}
@@ -95,7 +132,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                         Yes
                     </Button>
                     <Button onClick={() => {
-                        updateCard(id, profile.id, false)
+                        handleClick(id, profile.id, false)
                         setAttending(false)
 
                     }}
@@ -106,9 +143,10 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                     </Button>
                 </Stack>}
                 {authorId == profile.id && <Stack mt={8} direction={'row'} spacing={4}>
-                    <Button onClick={() => {
-                        console.log(id)
-                        cancelEvent(id)
+                    <Button onClick={async() => {
+                        await deleteCard(id)
+                        window.location.reload();
+
                     }}
                         flex={1}
                         fontSize={'sm'}
