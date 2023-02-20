@@ -1,4 +1,4 @@
-import { SimpleGrid, Box, VStack, HStack } from "@chakra-ui/react"
+import { SimpleGrid, Box, VStack, HStack, Center } from "@chakra-ui/react"
 import HangoutCard from "./HangoutCard"
 import { useStore } from "../store";
 import Landing from "./landingPage/Landing"
@@ -55,7 +55,7 @@ export default function Dashboard() {
                     <VStack>
                         <SimpleGrid columns={1} spacing={5} display={{ base: "flex", sm: "grid" }} flexDirection={{ base: "column" }} >
                             <HStack>
-                                <Text fontSize={"3em"}>Uh oh.. looks like its empty 👀</Text>
+                                <Center fontSize={"3em"}>Uh oh.. looks like its empty 👀</Center>
                             </HStack>
 
                         </SimpleGrid>
