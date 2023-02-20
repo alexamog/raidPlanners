@@ -2,7 +2,6 @@ import { SimpleGrid, Box, VStack, HStack, Center } from "@chakra-ui/react"
 import HangoutCard from "./HangoutCard"
 import { useStore } from "../store";
 import Landing from "./landingPage/Landing"
-import { Text } from "@chakra-ui/react"
 import { useEffect, useState } from "react";
 import axios from 'axios';
 

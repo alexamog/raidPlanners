@@ -10,33 +10,33 @@ const dbController = {
             return res.json(result)
         })
     },
-    addAttendee: (req,res) =>{
+    addAttendee: (req, res) => {
         const attendeesVals = [req.body.userId, req.body.hangoutId];
         const preparedStatement = "INSERT INTO attendees(`user_id`,`hangout_id`) VALUES (?,?)";
 
         //Check if user is already added  
-        conn.query("SELECT * FROM attendees WHERE user_id = ? AND hangout_id = ?",attendeesVals,(err,result)=>{
-            if(err){
+        conn.query("SELECT * FROM attendees WHERE user_id = ? AND hangout_id = ?", attendeesVals, (err, result) => {
+            if (err) {
                 res.status(500).json(err);
             }
-            if(result.length == 0){
-                conn.query(preparedStatement,attendeesVals, (err,result)=>{
-                    if(err){
+            if (result.length == 0) {
+                conn.query(preparedStatement, attendeesVals, (err, result) => {
+                    if (err) {
                         res.status(500).json(err);
                     }
                     res.status(200).json(result);
                 })
             }
-            else{
+            else {
                 res.status(400).send("User Already added.")
             }
         })
     },
-    deleteAttendee: (req,res) =>{
+    deleteAttendee: (req, res) => {
         const preparedStatement = "DELETE FROM attendees WHERE user_id = ? AND hangout_id = ?";
         const attendeesVals = [req.body.userId, req.body.hangoutId];
-        conn.query(preparedStatement,attendeesVals, (err,result)=>{
-            if(err){
+        conn.query(preparedStatement, attendeesVals, (err, result) => {
+            if (err) {
                 res.status(500).json(err);
             }
             res.status(200).json(result);
@@ -55,7 +55,7 @@ const dbController = {
             if (err) {
                 return res.status(500).json(err);
             }
-            conn.query(preparedStatementInsert, [req.body.authorId,result.insertId], (err, result) => {
+            conn.query(preparedStatementInsert, [req.body.authorId, result.insertId], (err, result) => {
                 if (err) {
                     return res.status(500).json(err);
                 }
@@ -70,10 +70,10 @@ const dbController = {
     findOne: (req, res) => {
         const id = req.params.id
     },
-    dropCard: (req,res) =>{
+    dropCard: (req, res) => {
         const preparedStatement = "DELETE FROM hangouts WHERE hangout_id = ?";
-        conn.query(preparedStatement,req.body.cardId,(err,result)=>{
-            if(err){
+        conn.query(preparedStatement, req.body.cardId, (err, result) => {
+            if (err) {
                 res.status(500).json(err);
             }
             res.json(result);
