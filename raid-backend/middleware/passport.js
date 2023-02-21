@@ -31,7 +31,6 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(async (id, done) => {
     const user = await userController.findUser(id)
     if (user) {
-        console.log(user)
         done(null, user);
     } else {
         done({ message: "User not found" }, null);

@@ -30,6 +30,10 @@ CREATE TABLE attendees(
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (hangout_id) REFERENCES hangouts(hangout_id)
 );
+
+INSERT INTO users(user_id,user_name,user_avatar,user_discriminator) VALUES('100319324333432832', 'Seisname','a57b03dcb179eb2ca827f55fbb828b08','8162');
+INSERT INTO hangouts(hangout_authorId, hangout_title, hangout_description, hangout_date, hangout_location) VALUES("100319324333432832", "Raid Hangout", "Lets raid and game", "2023-02-25T00:00", "My place!");
+INSERT INTO attendees(user_id, hangout_id) VALUES("100319324333432832", 1);
 CREATE USER 'raid-user' @'%' IDENTIFIED BY 'raiduser-0000';
 
 GRANT ALL PRIVILEGES ON raid.* TO 'raid-user' @'%' WITH GRANT OPTION;

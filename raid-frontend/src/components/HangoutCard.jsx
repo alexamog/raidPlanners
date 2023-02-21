@@ -142,6 +142,16 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                         rounded={'full'}>
                         No
                     </Button>
+                    <Button onClick={()=>{
+                        navigator.clipboard.writeText(`http://localhost:5173/event/${id}`)
+                        alert("Copied to clipboard!")
+                    }}
+                    flex={1}
+                    fontSize={'sm'}
+                    rounded={'full'}
+                    >
+                        Share
+                    </Button>
                 </Stack>}
                 {authorId == profile.id && <Stack mt={8} direction={'row'} spacing={4}>
                     <Button onClick={()=>deleteCard(id)}
