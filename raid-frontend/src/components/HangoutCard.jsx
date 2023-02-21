@@ -21,6 +21,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
         await axios.post("http://localhost:3001/db/dropCard", { cardId: hangoutId }, { withCredentials: true })
             .then((resp) => {
                 console.log(resp.data)
+                window.location.reload()
             })
             .catch((err) => {
                 console.log(err.data)
@@ -35,6 +36,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
             }, { withCredentials: true })
                 .then((resp) => {
                     console.log(resp.data)
+                    setAttending(true)
                 })
                 .catch((err) => {
                     console.log(err.data)
@@ -47,6 +49,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
             }, { withCredentials: true })
                 .then((resp) => {
                     console.log(resp.data)
+                    setAttending(false)
                 })
                 .catch((err) => {
                     console.log(err.data)
@@ -117,10 +120,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                 </Stack>
 
                 {authorId != profile.id && <Stack mt={8} direction={'row'} spacing={4}>
-                    <Button onClick={() => {
-                        handleClick(id, profile.id, true)
-                        setAttending(true)
-                    }}
+                    <Button onClick={() =>handleClick(id, profile.id, true)}
                         flex={1}
                         fontSize={'sm'}
                         rounded={'full'}
@@ -129,11 +129,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                     >
                         Yes
                     </Button>
-                    <Button onClick={() => {
-                        handleClick(id, profile.id, false)
-                        setAttending(false)
-
-                    }}
+                    <Button onClick={() => handleClick(id, profile.id, false)}
                         flex={1}
                         fontSize={'sm'}
                         rounded={'full'}>
@@ -141,11 +137,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                     </Button>
                 </Stack>}
                 {authorId == profile.id && <Stack mt={8} direction={'row'} spacing={4}>
-                    <Button onClick={async () => {
-                        await deleteCard(id)
-                        window.location.reload();
-
-                    }}
+                    <Button onClick={()=>deleteCard(id)}
                         flex={1}
                         fontSize={'sm'}
                         rounded={'full'}

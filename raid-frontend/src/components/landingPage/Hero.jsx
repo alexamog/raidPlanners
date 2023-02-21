@@ -66,7 +66,7 @@ export default function Hero({ title, subtitle, image, ctaLink, ctaText, ...rest
                     </Center>
                 </Button>}
                 {profile.username != null && <Button                     w={'full'}
-                    maxW={'md'} onClick={() => { navigate({ to: "/create", replace: true }) }} variant='solid' colorScheme='green'>
+                    maxW={'md'} onClick={() => { navigate({ to: "/hangouts", replace: true }) }} variant='solid' colorScheme='green'>
                     Get started
                 </Button>}
 

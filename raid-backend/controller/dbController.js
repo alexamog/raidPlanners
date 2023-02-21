@@ -59,7 +59,7 @@ const dbController = {
                 if (err) {
                     return res.status(500).json(err);
                 }
-                return res.send.status(200).json(result)
+                res.status(200).json(result)
             })
         })
 
@@ -72,6 +72,12 @@ const dbController = {
     },
     dropCard: (req, res) => {
         const preparedStatement = "DELETE FROM hangouts WHERE hangout_id = ?";
+        const preparedStatementDropAttendee = "DELETE FROM attendees WHERE hangout_id = ? "
+        conn.query(preparedStatementDropAttendee, req.body.cardId,(err,result)=>{
+            if(err){
+                res.status(500).json(err);
+            }
+        })
         conn.query(preparedStatement, req.body.cardId, (err, result) => {
             if (err) {
                 res.status(500).json(err);
