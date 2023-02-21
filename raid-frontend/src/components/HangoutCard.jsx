@@ -26,6 +26,16 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                 console.log(err.data)
             })
     }
+    const editCard = async (hangoutId) =>{
+        // await axios.post("http://localhost:3001/db/editCard", {cardId: hangoutId}, {withCredentials: true})
+        // .then((resp)=>{
+        //     console.log(resp)
+        // })
+        // .catch((err)=>{
+        //     console.log(err)
+        // })
+        return;
+    }
 
     const handleClick = async (hangoutId, authorId, attending) => {
         if (attending) {
@@ -142,6 +152,15 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                             bg: 'red.200',
                         }}>
                         Cancel event
+                    </Button>
+                    <Button onClick={()=>editCard(id)}
+                        flex={1}
+                        fontSize={'sm'}
+                        rounded={'full'}
+                        _focus={{
+                            bg: 'yellow.200',
+                        }}>
+                        Edit event
                     </Button>
                 </Stack>}
             </Box>

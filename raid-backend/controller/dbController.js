@@ -65,6 +65,7 @@ const dbController = {
 
     },
     updateCard: (req, res) => {
+        const preparedStatement = "UPDATE hangouts SET ? = ? WHERE hangout_id = ?" 
         res.send("update Card")
     },
     findOne: (req, res) => {
