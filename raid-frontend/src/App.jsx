@@ -8,7 +8,6 @@ import { useDB } from "./components/mockupDB";
 import Dashboard from "./components/Dashboard";
 import ViewCard from "./components/ViewCard";
 import axios from "axios";
-import Test from "./components/Test";
 import { useState } from "react";
 const location = new ReactLocation();
 

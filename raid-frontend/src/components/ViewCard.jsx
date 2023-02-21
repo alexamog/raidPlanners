@@ -20,10 +20,17 @@ export default function ViewCard() {
         data: { card },
     } = useMatch()
     const profile = useStore((state) => state.profile);
-    const updateCard = useDB((store) => store.updateCard);
     const cancelEvent = useDB((store) => store.deleteCard);
     const [attending, setAttending] = useState(false);
-    console.log(card)
+    if(card == undefined){
+        return (<Box>
+            <Center>
+                <Heading>
+                    Card not found.
+                </Heading>
+            </Center>
+        </Box>)
+    }
     return (
         <Center py={6}>
             <Box
