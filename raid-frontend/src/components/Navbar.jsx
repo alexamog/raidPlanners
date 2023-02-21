@@ -29,7 +29,6 @@ export default function Navbar() {
     useEffect(() => {
         axios.get("http://localhost:3001/auth/user", { withCredentials: true })
             .then((resp) => {
-                console.log(resp.data)
                 if (resp.data != "Not logged in") {
                     setProfile(resp.data)
                     setAuth(true)

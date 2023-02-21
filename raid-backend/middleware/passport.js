@@ -12,20 +12,26 @@ const discordLogin = new DiscordStrategy(
         callbackURL: process.env.CALLBACK_URL,
         scope: ['identify', 'email']
     },
-    (accessToken, refreshToken, profile, done) => {
-        const user = userController.getUserByIdOrAdd(profile)
-        if (user != null) {
+    async (accessToken, refreshToken, profile, done) => {
+        const user = await userController.findUser(profile.id)
+        if(user == undefined){
+            userController.adduser(profile)
+            const newUser = await userController.findUser(profile.id)
+            return done(null,newUser)
+        }
+        else{
             return done(null, user);
         }
     }
 )
 passport.serializeUser((user, done) => {
-    done(null, user.id);
+    done(null, user.user_id);
 });
 
-passport.deserializeUser((id, done) => {
-    let user = userController.getUserById(id);
+passport.deserializeUser(async (id, done) => {
+    const user = await userController.findUser(id)
     if (user) {
+        console.log(user)
         done(null, user);
     } else {
         done({ message: "User not found" }, null);

@@ -12,10 +12,10 @@ export const useStore = create((set) => ({
         set(
             produce((state) => {
                 state.profile = {
-                    username: profile.username,
-                    avatar: profile.profilePicture,
-                    id: profile.id,
-                    discriminator: profile.discriminator
+                    username: profile.user_name,
+                    avatar: profile.user_avatar,
+                    id: profile.user_id,
+                    discriminator: profile.user_discriminator
                 }
             })
         ),
