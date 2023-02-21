@@ -20,7 +20,6 @@ export default function Dashboard() {
         }
         fetchCards()
         .then((resp) => {
-            console.log(resp.data)
             setCardsList(resp.data)
         })
         .catch((err) => {

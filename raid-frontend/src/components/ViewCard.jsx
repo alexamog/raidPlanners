@@ -22,7 +22,8 @@ export default function ViewCard() {
     const profile = useStore((state) => state.profile);
     const updateCard = useDB((store) => store.updateCard);
     const cancelEvent = useDB((store) => store.deleteCard);
-    const [attending, setAttending] = useState(card.attending.includes(profile.id));
+    const [attending, setAttending] = useState(false);
+    console.log(card)
     return (
         <Center py={6}>
             <Box
@@ -41,20 +42,20 @@ export default function ViewCard() {
                 <Avatar
                     size={'xl'}
                     src={
-                        `https://cdn.discordapp.com/avatars/${card.authorId}/${card.avatar}.png`
+                        `https://cdn.discordapp.com/avatars/${card.hangout_authorId}/${card.avatar}.png`
                     }
                     alt={'Avatar Alt'}
                     mb={4}
                     pos={'relative'}
                 />
                 <Heading fontSize={'2xl'} fontFamily={'body'}>
-                    Query param id: {card.id}
+                    {card.hangout_title}
                 </Heading>
                 <Text fontWeight={600} color={'gray.500'} mb={4}>
                     @{card.author}#{card.authorDiscriminator}
                 </Text>
                 <Text>
-                    {card.description}
+                    {card.hangout_description}
                 </Text>
 
                 <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
@@ -65,7 +66,8 @@ export default function ViewCard() {
                         fontWeight={'400'}
                         color={"white"}
                     >
-                        Attendees: {card.attending.length}
+                        {/* Attendees: {card.attending.length} */}
+                        Attendees: hardCoded
                     </Badge>
                     <Badge
                         px={2}
@@ -74,7 +76,7 @@ export default function ViewCard() {
                         fontWeight={'400'}
                         color={"white"}
                         >
-                        {card.location}
+                        {card.hangout_location}
                     </Badge>
 
                 </Stack>
@@ -85,14 +87,14 @@ export default function ViewCard() {
                         bg={useColorModeValue('gray.50', 'gray.800')}
                         fontSize={"1em"}
                         fontWeight={'200'}>
-                        {new Date(card.datetime).toLocaleString()}
+                        {new Date(card.hangout_date).toLocaleString()}
                     </Badge>
                     {attending && <Text fontSize={"3xl"} fontWeight={"black"} color={"green.400"}>Attending</Text>}
                 </Stack>
 
                 {card.authorId != profile.id && profile.username != null && <Stack mt={8} direction={'row'} spacing={4}>
                     <Button onClick={() => {
-                        updateCard(card.id, profile.id, true)
+                        // updateCard(card.id, profile.id, true)
                         setAttending(true)
                     }}
                         flex={1}
@@ -104,7 +106,7 @@ export default function ViewCard() {
                         Yes
                     </Button>
                     <Button onClick={() => {
-                        updateCard(card.id, profile.id, false)
+                        // updateCard(card.id, profile.id, false)
                         setAttending(false)
 
                     }}

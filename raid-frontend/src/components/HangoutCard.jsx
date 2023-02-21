@@ -20,7 +20,6 @@ export default function HangoutCard({ id, author, title, description, datetime, 
     const deleteCard = async (hangoutId) => {
         await axios.post("http://localhost:3001/db/dropCard", { cardId: hangoutId }, { withCredentials: true })
             .then((resp) => {
-                console.log(resp.data)
                 window.location.reload()
             })
             .catch((err) => {
@@ -35,7 +34,6 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                 hangoutId: hangoutId
             }, { withCredentials: true })
                 .then((resp) => {
-                    console.log(resp.data)
                     setAttending(true)
                 })
                 .catch((err) => {
@@ -48,7 +46,6 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                 hangoutId: hangoutId
             }, { withCredentials: true })
                 .then((resp) => {
-                    console.log(resp.data)
                     setAttending(false)
                 })
                 .catch((err) => {

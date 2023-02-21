@@ -69,6 +69,13 @@ const dbController = {
     },
     findOne: (req, res) => {
         const id = req.params.id
+        const preparedStatement = "SELECT * FROM hangouts WHERE hangout_id = ?"
+        conn.query(preparedStatement,id,(err,result)=>{
+            if(err){
+                res.status(500).json(err)
+            }
+            res.json(result)
+        })
     },
     dropCard: (req, res) => {
         const preparedStatement = "DELETE FROM hangouts WHERE hangout_id = ?";

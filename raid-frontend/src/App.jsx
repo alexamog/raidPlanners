@@ -50,7 +50,7 @@ function App() {
 
     return await axios
       .get(`http://localhost:3001/db/mock/${postId}`)
-      .then((r) => r.data);
+      .then((r) => r.data[0]);
   }
   return (
     <ChakraProvider>
