@@ -31,4 +31,4 @@ When you're finished running the application, simply enter `docker-compose down`
 
 # Future implementation
 
-In the upcoming future we plan on implementing a Discord bot to remind users through Discord what events are coming up. 
+In the upcoming future we plan on implementing a Discord bot to remind users about any events that are upcomng or if they have been edited or deleted. 
