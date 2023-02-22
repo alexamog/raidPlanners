@@ -13,18 +13,19 @@ export default function Dashboard() {
     if (profile.username == null) {
         return <Landing />
     }
-    useEffect( () => {
+    useEffect(() => {
         const fetchCards = async () => {
-            const data = await axios.get("http://localhost:3001/db/getall", {withCredentials: true})
+            const data = await axios.get("http://localhost:3001/db/getall", { withCredentials: true })
             return data
         }
         fetchCards()
-        .then((resp) => {
-            setCardsList(resp.data)
-        })
-        .catch((err) => {
-            console.log(err)
-        })
+            .then((resp) => {
+                console.log(resp.data)
+                setCardsList(resp.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }, []);
     return (
         <Box align="center"
@@ -42,15 +43,15 @@ export default function Dashboard() {
                                 <HangoutCard
                                     key={hangout.hangout_id}
                                     id={hangout.hangout_id}
-                                    author="Placeholder for now"
+                                    author={hangout.user_name}
                                     title={hangout.hangout_title}
                                     description={hangout.hangout_description}
                                     datetime={hangout.hangout_date}
                                     location={hangout.hangout_location}
                                     attendees={["1", "2", "3"]}
-                                    authorId={hangout.hangout_authorId}
-                                    avatar={""}
-                                    authorDiscriminator={"mock"}
+                                    authorId={hangout.user_id}
+                                    avatar={hangout.user_avatar}
+                                    authorDiscriminator={hangout.user_discriminator}
                                 />
                             )
                         })}
@@ -61,8 +62,8 @@ export default function Dashboard() {
                         <SimpleGrid columns={1} spacing={5} display={{ base: "flex", sm: "grid" }} flexDirection={{ base: "column" }} >
                             <HStack>
                                 <VStack>
-                                <Center fontSize={"3em"}>Uh oh.. looks like its empty 👀</Center>
-                                    <Button onClick={()=>navigate({ to: "/create", replace: true })}>
+                                    <Center fontSize={"3em"}>Uh oh.. looks like its empty 👀</Center>
+                                    <Button onClick={() => navigate({ to: "/create", replace: true })}>
                                         Create hangout
                                     </Button>
                                 </VStack>

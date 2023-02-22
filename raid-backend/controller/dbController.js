@@ -2,7 +2,7 @@ const conn = require("../db-conn");
 
 const dbController = {
     getAll: (req, res) => {
-        const preparedStatement = "SELECT * FROM hangouts";
+        const preparedStatement = "SELECT hangouts.hangout_id,hangouts.user_id,users.user_name, users.user_avatar, users.user_discriminator, hangouts.hangout_title, hangouts.hangout_description, hangouts.hangout_date, hangouts.hangout_location FROM hangouts INNER JOIN users ON hangouts.user_id = users.user_id;";
         conn.query(preparedStatement, (err, result) => {
             if (err) {
                 res.status(500).json(err)
@@ -43,7 +43,7 @@ const dbController = {
         })
     },
     addCard: (req, res) => {
-        const preparedStatement = "INSERT INTO hangouts(`hangout_authorId`, `hangout_title`, `hangout_description`,`hangout_date`,`hangout_location`) VALUES (?,?,?,?,?)";
+        const preparedStatement = "INSERT INTO hangouts(`user_id`, `hangout_title`, `hangout_description`,`hangout_date`,`hangout_location`) VALUES (?,?,?,?,?)";
         const preparedStatementInsert = "INSERT INTO attendees(`user_id`,`hangout_id`) VALUES (?,?)";
 
         const hangoutVals = [];
