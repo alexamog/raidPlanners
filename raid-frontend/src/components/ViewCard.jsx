@@ -1,6 +1,5 @@
 import { useStore } from '../store';
-import { useDB } from "./mockupDB";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
     Heading,
     Avatar,
@@ -12,6 +11,9 @@ import {
     Badge,
     useColorModeValue,
 } from '@chakra-ui/react';
+import axios from "axios";
+import { useNavigate } from "@tanstack/react-location";
+import { FaDiscord } from 'react-icons/fa';
 
 import { useMatch } from '@tanstack/react-location';
 
@@ -19,10 +21,11 @@ export default function ViewCard() {
     const {
         data: { card },
     } = useMatch()
+    const navigate = useNavigate();
     const profile = useStore((state) => state.profile);
-    const cancelEvent = useDB((store) => store.deleteCard);
-    const [attending, setAttending] = useState(false);
-    if(card == undefined){
+    const [attending, setAttending] = useState(null);
+    const [attendees, setAttendees] = useState([]);
+    if (card == undefined) {
         return (<Box>
             <Center>
                 <Heading>
@@ -30,6 +33,74 @@ export default function ViewCard() {
                 </Heading>
             </Center>
         </Box>)
+    }
+
+    const fetchAttendees = async () => {
+        const data = await axios.get(`http://localhost:3001/db/getAttendees/${card.hangout_id}`, { withCredentials: true })
+        return data
+    }
+
+    const handleAttendee = async () => {
+        await fetchAttendees()
+            .then((resp) => {
+                if (resp.data.includes(profile.id)) {
+                    setAttending(true)
+                }
+                setAttendees(resp.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+    useEffect(() => {
+        fetchAttendees()
+            .then((resp) => {
+                if (resp.data.includes(profile.id)) {
+                    setAttending(true)
+                }
+                setAttendees(resp.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, []);
+    const deleteCard = async (hangoutId) => {
+        await axios.post("http://localhost:3001/db/dropCard", { cardId: hangoutId }, { withCredentials: true })
+            .then((resp) => {
+                alert("Card deleted.")
+                navigate({ to: "/hangouts", replace: true })
+
+            })
+            .catch((err) => {
+                console.log(err.data)
+            })
+    }
+
+    const handleClick = async (hangoutId, authorId, attending) => {
+        if (attending) {
+            await axios.post("http://localhost:3001/db/addAttendee", {
+                userId: authorId,
+                hangoutId: hangoutId
+            }, { withCredentials: true })
+                .then((resp) => {
+                    setAttending(true)
+                })
+                .catch((err) => {
+                    console.log(err.data)
+                })
+        }
+        if (!attending) {
+            await axios.post("http://localhost:3001/db/deleteAttendee", {
+                userId: authorId,
+                hangoutId: hangoutId
+            }, { withCredentials: true })
+                .then((resp) => {
+                    setAttending(false)
+                })
+                .catch((err) => {
+                    console.log(err.data)
+                })
+        }
     }
     return (
         <Center py={6}>
@@ -49,7 +120,7 @@ export default function ViewCard() {
                 <Avatar
                     size={'xl'}
                     src={
-                        `https://cdn.discordapp.com/avatars/${card.hangout_authorId}/${card.avatar}.png`
+                        `https://cdn.discordapp.com/avatars/${card.user_id}/${card.user_avatar}.png`
                     }
                     alt={'Avatar Alt'}
                     mb={4}
@@ -59,7 +130,7 @@ export default function ViewCard() {
                     {card.hangout_title}
                 </Heading>
                 <Text fontWeight={600} color={'gray.500'} mb={4}>
-                    @{card.author}#{card.authorDiscriminator}
+                    @{card.user_name}#{card.user_discriminator}
                 </Text>
                 <Text>
                     {card.hangout_description}
@@ -73,8 +144,7 @@ export default function ViewCard() {
                         fontWeight={'400'}
                         color={"white"}
                     >
-                        {/* Attendees: {card.attending.length} */}
-                        Attendees: hardCoded
+                        Attendees: {attendees.length}
                     </Badge>
                     <Badge
                         px={2}
@@ -82,7 +152,7 @@ export default function ViewCard() {
                         bg={"purple.700"}
                         fontWeight={'400'}
                         color={"white"}
-                        >
+                    >
                         {card.hangout_location}
                     </Badge>
 
@@ -98,11 +168,21 @@ export default function ViewCard() {
                     </Badge>
                     {attending && <Text fontSize={"3xl"} fontWeight={"black"} color={"green.400"}>Attending</Text>}
                 </Stack>
-
-                {card.authorId != profile.id && profile.username != null && <Stack mt={8} direction={'row'} spacing={4}>
+                {profile.username == null && <Button onClick={() => {
+                    window.location.href = "http://localhost:3001/auth/discord";
+                }}
+                    w={'full'}
+                    maxW={'md'}
+                    colorScheme={'facebook'}
+                    leftIcon={<FaDiscord />}>
+                    <Center>
+                        <Text>Sign in with Discord to attend!</Text>
+                    </Center>
+                </Button>}
+                {card.user_id != profile.id && profile.username != null && <Stack mt={8} direction={'row'} spacing={4}>
                     <Button onClick={() => {
-                        // updateCard(card.id, profile.id, true)
-                        setAttending(true)
+                        handleClick(card.hangout_id, profile.id, true)
+                        handleAttendee()
                     }}
                         flex={1}
                         fontSize={'sm'}
@@ -113,8 +193,8 @@ export default function ViewCard() {
                         Yes
                     </Button>
                     <Button onClick={() => {
-                        // updateCard(card.id, profile.id, false)
-                        setAttending(false)
+                        handleClick(card.hangout_id, profile.id, false)
+                        handleAttendee()
 
                     }}
                         flex={1}
@@ -123,10 +203,9 @@ export default function ViewCard() {
                         No
                     </Button>
                 </Stack>}
-                {card.authorId == profile.id && <Stack mt={8} direction={'row'} spacing={4}>
+                {card.user_id == profile.id && <Stack mt={8} direction={'row'} spacing={4}>
                     <Button onClick={() => {
-                        console.log(id)
-                        cancelEvent(id)
+                        deleteCard(card.hangout_id)
                     }}
                         flex={1}
                         fontSize={'sm'}

@@ -4,7 +4,6 @@ import Footer from './components/Footer'
 import Navbar from './components/Navbar'
 import CreatePlan from "./components/CreatePlan";
 import Landing from "./components/landingPage/Landing";
-import { useDB } from "./components/mockupDB";
 import Dashboard from "./components/Dashboard";
 import ViewCard from "./components/ViewCard";
 import axios from "axios";
@@ -15,7 +14,6 @@ function App() {
   const [data, setData] = useState({
 
   })
-  const mockUpDB = useDB((state) => state.mockUpDB);
   const routes = [
     {
       path: "/",
@@ -48,7 +46,7 @@ function App() {
     await new Promise((r) => setTimeout(r, 300));
 
     return await axios
-      .get(`http://localhost:3001/db/mock/${postId}`)
+      .get(`http://localhost:3001/db/card/${postId}`)
       .then((r) => r.data[0]);
   }
   return (

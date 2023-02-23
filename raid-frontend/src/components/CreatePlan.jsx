@@ -1,7 +1,6 @@
-import { Card, CardHeader, CardBody, CardFooter, useColorModeValue, Stack, Heading, Image, Divider, ButtonGroup, Button, Text, HStack, VStack } from '@chakra-ui/react'
+import { Card, CardBody, CardFooter, useColorModeValue, Stack, Heading, Divider, ButtonGroup, Button, Text, HStack, VStack } from '@chakra-ui/react'
 import { useState, useRef } from 'react';
 import { useStore } from "../store";
-import { useDB } from "./mockupDB";
 import Landing from "../components/landingPage/Landing"
 import { useNavigate } from "@tanstack/react-location";
 import axios from 'axios';
@@ -10,7 +9,6 @@ import axios from 'axios';
 export default function CreatePlan() {
     const navigate = useNavigate();
     const profile = useStore((state) => state.profile);
-    const addCard = useDB((store) => store.addCard);
     const cardRef = useRef();
     const [cardInfo, setCardInfo] = useState({
         authorId: profile.id,

@@ -48,7 +48,6 @@ export default function Dashboard() {
                                     description={hangout.hangout_description}
                                     datetime={hangout.hangout_date}
                                     location={hangout.hangout_location}
-                                    attendees={["1", "2", "3"]}
                                     authorId={hangout.user_id}
                                     avatar={hangout.user_avatar}
                                     authorDiscriminator={hangout.user_discriminator}

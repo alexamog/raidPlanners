@@ -42,6 +42,20 @@ const dbController = {
             res.status(200).json(result);
         })
     },
+
+    getAttendees: (req, res) => {
+        const preparedStatement = "SELECT `user_id` FROM attendees WHERE hangout_id = ?";
+        conn.query(preparedStatement, req.params.id, (err, result) => {
+            if (err) {
+                res.status(500).json(err);
+            }
+            const attendees = []
+            for (const user of result) {
+                attendees.push(user.user_id)
+            }
+            res.status(200).json(attendees);
+        })
+    },
     addCard: (req, res) => {
         const preparedStatement = "INSERT INTO hangouts(`user_id`, `hangout_title`, `hangout_description`,`hangout_date`,`hangout_location`) VALUES (?,?,?,?,?)";
         const preparedStatementInsert = "INSERT INTO attendees(`user_id`,`hangout_id`) VALUES (?,?)";
@@ -65,14 +79,14 @@ const dbController = {
 
     },
     updateCard: (req, res) => {
-        const preparedStatement = "UPDATE hangouts SET ? = ? WHERE hangout_id = ?" 
+        const preparedStatement = "UPDATE hangouts SET ? = ? WHERE hangout_id = ?"
         res.send("update Card")
     },
     findOne: (req, res) => {
         const id = req.params.id
-        const preparedStatement = "SELECT * FROM hangouts WHERE hangout_id = ?"
-        conn.query(preparedStatement,id,(err,result)=>{
-            if(err){
+        const preparedStatement = "SELECT hangouts.hangout_id,hangouts.user_id,users.user_name, users.user_avatar, users.user_discriminator, hangouts.hangout_title, hangouts.hangout_description, hangouts.hangout_date, hangouts.hangout_location FROM hangouts INNER JOIN users ON hangouts.user_id = users.user_id where hangout_id = ?;"
+        conn.query(preparedStatement, id, (err, result) => {
+            if (err) {
                 res.status(500).json(err)
             }
             res.json(result)
@@ -81,8 +95,8 @@ const dbController = {
     dropCard: (req, res) => {
         const preparedStatement = "DELETE FROM hangouts WHERE hangout_id = ?";
         const preparedStatementDropAttendee = "DELETE FROM attendees WHERE hangout_id = ? "
-        conn.query(preparedStatementDropAttendee, req.body.cardId,(err,result)=>{
-            if(err){
+        conn.query(preparedStatementDropAttendee, req.body.cardId, (err, result) => {
+            if (err) {
                 res.status(500).json(err);
             }
         })
@@ -92,97 +106,7 @@ const dbController = {
             }
             res.json(result);
         })
-    },
-
-    getHangoutByID: (req, res) => {
-        const qText = "select * from `hangouts` where `id` = ?";
-        const qVals = [req.id];
-
-        conn.query(qText, qVals,
-            (err, result) => {
-                if (err) {
-                    return res.json(err);
-                };
-
-                if (result.length < 1) {
-                    return res.json("Hangout does not exist.");
-                };
-
-                return res.json(result);
-            });
-    },
-
-    getHangoutsByTitle: (req, res) => {
-        const qText = "select * from `hangouts` where title like %?%";
-        const qVals = [req.title];
-
-        conn.query(qText, qVals,
-            (err, result) => {
-                if (err) {
-                    return res.json(err);
-                };
-
-                if (result.length < 1) {
-                    return res.json("Hangout does not exist.");
-                };
-
-                return res.json(result);
-            });
-    },
-
-    getHangoutsByDate: (req, res) => {
-        const qText = "select * from `hangouts` where datetime >= ?T00:00:00.000 \
-                                                  and datetime <= ?T23:59:59.999";
-        // No need to specify time; 
-        const qVals = [req.day];
-
-        conn.query(qText, qVals,
-            (err, result) => {
-                if (err) {
-                    return res.json(err);
-                };
-
-                if (result.length < 1) {
-                    return res.json("Hangout does not exist.");
-                };
-
-                return res.json(result);
-            });
-    },
-
-    // void
-    addHangout: (res, req) => {
-        const qText = "select `hTitle` from `hangouts` where title like ?";
-        const qVals = [req.title];
-
-        conn.query(qText, qVals,
-            (err, result) => {
-                if (err) {
-                    return res.json(err);
-                };
-
-                if (result.length > 0) {
-                    return res.status(400).json("Hangout with the same name already exists.");
-                };
-
-                const qqText = "insert into hangouts (hAuthor, hTitle, hDesc, hDate, hLocation)\
-                                        values   (?)"
-                const qqVals = [req.hAuthor,
-                req.hTitle,
-                req.hDesc,
-                req.hDate,
-                req.hLocation]
-
-                conn.query(qqText, qqVals,
-                    (err, result) => {
-                        if (err) {
-                            return res.status(200).json(err);
-                        };
-
-                        return res.json("Hangout added.")
-                    });
-            });
-    },
+    }
 };
 
 module.exports = dbController;

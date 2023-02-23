@@ -1,5 +1,5 @@
 import { useStore } from '../store';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
     Heading,
     Avatar,
@@ -13,9 +13,39 @@ import {
 } from '@chakra-ui/react';
 import axios from 'axios';
 
-export default function HangoutCard({ id, author, title, description, datetime, location, attendees, authorId, avatar, authorDiscriminator }) {
+export default function HangoutCard({ id, author, title, description, datetime, location, authorId, avatar, authorDiscriminator }) {
     const profile = useStore((state) => state.profile);
-    const [attending, setAttending] = useState(attendees.includes(profile.id));
+    const [attending, setAttending] = useState(null);
+    const [attendees, setAttendees] = useState([]);
+    const fetchAttendees = async () => {
+        const data = await axios.get(`http://localhost:3001/db/getAttendees/${id}`, { withCredentials: true })
+        return data
+    }
+
+    const handleAttendee = async () => {
+        await fetchAttendees()
+            .then((resp) => {
+                if (resp.data.includes(profile.id)) {
+                    setAttending(true)
+                }
+                setAttendees(resp.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+    useEffect(() => {
+        fetchAttendees()
+            .then((resp) => {
+                if (resp.data.includes(profile.id)) {
+                    setAttending(true)
+                }
+                setAttendees(resp.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, []);
 
     const deleteCard = async (hangoutId) => {
         await axios.post("http://localhost:3001/db/dropCard", { cardId: hangoutId }, { withCredentials: true })
@@ -26,16 +56,6 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                 console.log(err.data)
             })
     }
-    const editCard = async (hangoutId) =>{
-        // await axios.post("http://localhost:3001/db/editCard", {cardId: hangoutId}, {withCredentials: true})
-        // .then((resp)=>{
-        //     console.log(resp)
-        // })
-        // .catch((err)=>{
-        //     console.log(err)
-        // })
-        return;
-    }
 
     const handleClick = async (hangoutId, authorId, attending) => {
         if (attending) {
@@ -45,6 +65,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
             }, { withCredentials: true })
                 .then((resp) => {
                     setAttending(true)
+                    handleAttendee()
                 })
                 .catch((err) => {
                     console.log(err.data)
@@ -57,6 +78,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
             }, { withCredentials: true })
                 .then((resp) => {
                     setAttending(false)
+                    handleAttendee()
                 })
                 .catch((err) => {
                     console.log(err.data)
@@ -127,7 +149,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                 </Stack>
 
                 {authorId != profile.id && <Stack mt={8} direction={'row'} spacing={4}>
-                    <Button onClick={() =>handleClick(id, profile.id, true)}
+                    <Button onClick={() => handleClick(id, profile.id, true)}
                         flex={1}
                         fontSize={'sm'}
                         rounded={'full'}
@@ -142,19 +164,19 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                         rounded={'full'}>
                         No
                     </Button>
-                    <Button onClick={()=>{
+                    <Button onClick={() => {
                         navigator.clipboard.writeText(`http://localhost:5173/event/${id}`)
                         alert("Copied to clipboard!")
                     }}
-                    flex={1}
-                    fontSize={'sm'}
-                    rounded={'full'}
+                        flex={1}
+                        fontSize={'sm'}
+                        rounded={'full'}
                     >
                         Share
                     </Button>
                 </Stack>}
                 {authorId == profile.id && <Stack mt={8} direction={'row'} spacing={4}>
-                    <Button onClick={()=>deleteCard(id)}
+                    <Button onClick={() => deleteCard(id)}
                         flex={1}
                         fontSize={'sm'}
                         rounded={'full'}
@@ -163,7 +185,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                         }}>
                         Cancel event
                     </Button>
-                    <Button onClick={()=>editCard(id)}
+                    <Button onClick={() => editCard(id)}
                         flex={1}
                         fontSize={'sm'}
                         rounded={'full'}
