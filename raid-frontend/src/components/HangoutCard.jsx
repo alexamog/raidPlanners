@@ -185,15 +185,6 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                         }}>
                         Cancel event
                     </Button>
-                    <Button onClick={() => editCard(id)}
-                        flex={1}
-                        fontSize={'sm'}
-                        rounded={'full'}
-                        _focus={{
-                            bg: 'yellow.200',
-                        }}>
-                        Edit event
-                    </Button>
                 </Stack>}
             </Box>
         </Center>
