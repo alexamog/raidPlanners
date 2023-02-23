@@ -24,7 +24,7 @@ function App() {
       element: <Dashboard />
     },
     {
-      path: 'event',
+      path: 'card',
       children: [
         {
           path: ':cardId',

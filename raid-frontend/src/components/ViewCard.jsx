@@ -166,7 +166,7 @@ export default function ViewCard() {
                         fontWeight={'200'}>
                         {new Date(card.hangout_date).toLocaleString()}
                     </Badge>
-                    {attending && <Text fontSize={"3xl"} fontWeight={"black"} color={"green.400"}>Attending</Text>}
+                    {attending && <Text fontSize={"2xl"} fontWeight={"black"} color={"green.400"}>Attending</Text>}
                 </Stack>
                 {profile.username == null && <Button onClick={() => {
                     window.location.href = "http://localhost:3001/auth/discord";

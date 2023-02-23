@@ -145,7 +145,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                     >
                         {new Date(datetime).toLocaleString()}
                     </Badge>
-                    {attending && <Text fontSize={"3xl"} fontWeight={"black"} color={"green.400"}>Attending</Text>}
+                    {attending && <Text fontSize={"2xl"} fontWeight={"black"} color={"green.400"}>Attending</Text>}
                 </Stack>
 
                 {authorId != profile.id && <Stack mt={8} direction={'row'} spacing={4}>
@@ -184,6 +184,16 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                             bg: 'red.200',
                         }}>
                         Cancel event
+                    </Button>
+                    <Button onClick={() => {
+                        navigator.clipboard.writeText(`http://localhost:5173/event/${id}`)
+                        alert("Copied to clipboard!")
+                    }}
+                        flex={1}
+                        fontSize={'sm'}
+                        rounded={'full'}
+                    >
+                        Share
                     </Button>
                 </Stack>}
             </Box>
