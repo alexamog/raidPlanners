@@ -1,31 +1,33 @@
-# This example requires the 'message_content' intent.
-import discord
 import os
+import discord
 from dotenv import load_dotenv
+from discord.ext import commands
+
+import asyncio
+
 load_dotenv()
-DISCORD_TOKEN = os.getenv("BOT_TOKEN")
+TOKEN = os.getenv('BOT_TOKEN')
+bot = commands.Bot(command_prefix='!', intents=discord.Intents.all())
 
 
-def main():
-    intents = discord.Intents.default()
-    intents.message_content = True
-
-    client = discord.Client(intents=intents)
-
-    @client.event
-    async def on_ready():
-        print(f'We have logged in as {client.user}')
-
-    @client.event
-    async def on_message(message):
-        if message.author == client.user:
-            return
-
-        if message.content.startswith('$hello'):
-            await message.channel.send('Hello!')
-
-    client.run(DISCORD_TOKEN)
+# await self.bot.change_presence(activity=Activity(type=ActivityType.playing, name=f'ZAMN! Its {current_time} 😍'), status=Status.idle)
 
 
-if __name__ == "__main__":
-    main()
+@bot.event
+async def on_ready():
+    await bot.change_presence(activity=discord.Activity(name='RaidPlanners', type=0))
+    print(discord.__version__)
+    print(f"{bot.user.name} - {bot.user.id}")
+    print('Up and running')
+
+
+async def load_extensions():
+    await bot.load_extension(f"cogs.commands")
+
+
+async def main():
+    async with bot:
+        await load_extensions()
+        await bot.start(TOKEN)
+
+asyncio.run(main())
