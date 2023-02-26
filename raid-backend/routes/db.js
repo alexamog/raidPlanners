@@ -5,7 +5,7 @@ const { ensureAuthenticated } = require("../middleware/checkAuth");
 
 
 router.get("/card/:id", dbController.findOne);
-router.get("/getall", ensureAuthenticated, dbController.getAll);
+router.get("/getall", dbController.getAll);
 
 router.post("/addCard", ensureAuthenticated, dbController.addCard);
 router.post("/dropCard", ensureAuthenticated, dbController.dropCard);
