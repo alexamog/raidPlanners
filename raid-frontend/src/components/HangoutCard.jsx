@@ -143,7 +143,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                         fontWeight={'200'}
                         color={"white"}
                     >
-                        {new Date(datetime).toLocaleString()}
+                        {new Date(datetime).toLocaleString('en-us', { timeZone: "UTC" })}
                     </Badge>
                     {attending && <Text fontSize={"2xl"} fontWeight={"black"} color={"green.400"}>Attending</Text>}
                 </Stack>
