@@ -49,7 +49,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
     }, []);
 
     const deleteCard = async (hangoutId) => {
-        await axios.post("http://localhost:3001/db/dropCard", { cardId: hangoutId }, { withCredentials: true })
+        await axios.delete("http://localhost:3001/db/dropCard", { cardId: hangoutId }, { withCredentials: true })
             .then((resp) => {
                 setExisting(false)
             })
@@ -73,7 +73,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                 })
         }
         if (!attending) {
-            await axios.post("http://localhost:3001/db/deleteAttendee", {
+            await axios.delete("http://localhost:3001/db/deleteAttendee", {
                 userId: authorId,
                 hangoutId: hangoutId
             }, { withCredentials: true })

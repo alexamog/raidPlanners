@@ -8,12 +8,12 @@ router.get("/card/:id", dbController.findOne);
 router.get("/getall", dbController.getAll);
 
 router.post("/addCard", ensureAuthenticated, dbController.addCard);
-router.post("/dropCard", ensureAuthenticated, dbController.dropCard);
+router.delete("/dropCard", ensureAuthenticated, dbController.dropCard);
 router.post("/updateCard", ensureAuthenticated, dbController.updateCard);
 router.post("/editCard", ensureAuthenticated, dbController.updateCard);
 
 
 router.post("/addAttendee", ensureAuthenticated, dbController.addAttendee);
-router.post("/deleteAttendee", ensureAuthenticated, dbController.deleteAttendee);
+router.delete("/deleteAttendee", ensureAuthenticated, dbController.deleteAttendee);
 router.get("/getAttendees/:id", dbController.getAttendees);
 module.exports = router;
