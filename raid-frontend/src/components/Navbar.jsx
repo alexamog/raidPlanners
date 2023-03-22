@@ -27,7 +27,7 @@ export default function Navbar() {
     const navigate = useNavigate();
     const { colorMode, toggleColorMode } = useColorMode();
     useEffect(() => {
-        axios.get("http://localhost:3001/auth/user", { withCredentials: true })
+        axios.get("http://44.225.181.153/auth/user", { withCredentials: true })
             .then((resp) => {
                 if (resp.data != "Not logged in") {
                     setProfile(resp.data)
@@ -84,7 +84,7 @@ export default function Navbar() {
                                     <MenuItem onClick={() => navigate({ to: "/hangouts", replace: true })}>Hangouts</MenuItem>
                                     <MenuItem onClick={() => navigate({ to: "/create", replace: true })}>Create Hangout</MenuItem>
                                     <MenuItem onClick={() => {
-                                        axios.get("http://localhost:3001/auth/logout", { withCredentials: true })
+                                        axios.get("http://44.225.181.153/auth/logout", { withCredentials: true })
                                         navigate({ to: "/", replace: true })
                                         window.location.reload();
                                     }}>Logout</MenuItem>

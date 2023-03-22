@@ -12,7 +12,7 @@ const authController = {
     }),
     discordLogin: passport.authenticate("discord"),
     discordCB: passport.authenticate("discord", {
-        successRedirect: "http://localhost:5173/",
+        successRedirect: "http://44.225.181.153/",
         failureRedirect: "/errorMock",
     }),
 

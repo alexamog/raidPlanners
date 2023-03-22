@@ -55,7 +55,7 @@ export default function Hero({ title, subtitle, image, ctaLink, ctaText, ...rest
                     {subtitle}
                 </Heading>
                 {profile.username == null && <Button onClick={() => {
-                    window.location.href = "http://localhost:3001/auth/discord";
+                    window.location.href ="http://44.225.181.153/auth/discord";
                 }}
                     w={'full'}
                     maxW={'md'}

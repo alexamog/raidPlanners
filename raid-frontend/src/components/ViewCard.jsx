@@ -36,7 +36,7 @@ export default function ViewCard() {
     }
 
     const fetchAttendees = async () => {
-        const data = await axios.get(`http://localhost:3001/db/getAttendees/${card.hangout_id}`, { withCredentials: true })
+        const data = await axios.get(`http://44.225.181.153/db/getAttendees/${card.hangout_id}`, { withCredentials: true })
         return data
     }
 
@@ -65,7 +65,7 @@ export default function ViewCard() {
             })
     }, []);
     const deleteCard = async (hangoutId) => {
-        await axios.post("http://localhost:3001/db/dropCard", { cardId: hangoutId }, { withCredentials: true })
+        await axios.post("http://44.225.181.153/db/dropCard", { cardId: hangoutId }, { withCredentials: true })
             .then((resp) => {
                 alert("Card deleted.")
                 navigate({ to: "/hangouts", replace: true })
@@ -78,7 +78,7 @@ export default function ViewCard() {
 
     const handleClick = async (hangoutId, authorId, attending) => {
         if (attending) {
-            await axios.post("http://localhost:3001/db/addAttendee", {
+            await axios.post("http://44.225.181.153/db/addAttendee", {
                 userId: authorId,
                 hangoutId: hangoutId
             }, { withCredentials: true })
@@ -90,7 +90,7 @@ export default function ViewCard() {
                 })
         }
         if (!attending) {
-            await axios.post("http://localhost:3001/db/deleteAttendee", {
+            await axios.post("http://44.225.181.153/db/deleteAttendee", {
                 userId: authorId,
                 hangoutId: hangoutId
             }, { withCredentials: true })
@@ -169,7 +169,7 @@ export default function ViewCard() {
                     {attending && <Text fontSize={"2xl"} fontWeight={"black"} color={"green.400"}>Attending</Text>}
                 </Stack>
                 {profile.username == null && <Button onClick={() => {
-                    window.location.href = "http://localhost:3001/auth/discord";
+                    window.location.href = "http://44.225.181.153/auth/discord";
                 }}
                     w={'full'}
                     maxW={'md'}

@@ -19,7 +19,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
     const [existing, setExisting] = useState(true);
     const [attendees, setAttendees] = useState([]);
     const fetchAttendees = async () => {
-        const data = await axios.get(`http://localhost:3001/db/getAttendees/${id}`, { withCredentials: true })
+        const data = await axios.get(`http://44.225.181.153/db/getAttendees/${id}`, { withCredentials: true })
         return data
     }
 
@@ -49,7 +49,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
     }, []);
 
     const deleteCard = async (hangoutId) => {
-        await axios.post("http://localhost:3001/db/dropCard", { cardId: hangoutId }, { withCredentials: true })
+        await axios.post("http://44.225.181.153/db/dropCard", { cardId: hangoutId }, { withCredentials: true })
             .then((resp) => {
                 setExisting(false)
             })
@@ -60,7 +60,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
 
     const handleClick = async (hangoutId, authorId, attending) => {
         if (attending) {
-            await axios.post("http://localhost:3001/db/addAttendee", {
+            await axios.post("http://44.225.181.153/db/addAttendee", {
                 userId: authorId,
                 hangoutId: hangoutId
             }, { withCredentials: true })
@@ -73,7 +73,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                 })
         }
         if (!attending) {
-            await axios.post("http://localhost:3001/db/deleteAttendee", {
+            await axios.post("http://44.225.181.153/db/deleteAttendee", {
                 userId: authorId,
                 hangoutId: hangoutId
             }, { withCredentials: true })
@@ -167,7 +167,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                             No
                         </Button>
                         <Button onClick={() => {
-                            navigator.clipboard.writeText(`http://localhost:5173/card/${id}`)
+                            navigator.clipboard.writeText(`http://44.225.181.153/card/${id}`)
                             alert("Copied to clipboard!")
                         }}
                             flex={1}
@@ -191,7 +191,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                             Cancel event
                         </Button>
                         <Button onClick={() => {
-                            navigator.clipboard.writeText(`http://localhost:5173/event/${id}`)
+                            navigator.clipboard.writeText(`http://44.225.181.153/event/${id}`)
                             alert("Copied to clipboard!")
                         }}
                             flex={1}

@@ -15,7 +15,7 @@ export default function Dashboard() {
     }
     useEffect(() => {
         const fetchCards = async () => {
-            const data = await axios.get("http://localhost:3001/db/getall", { withCredentials: true })
+            const data = await axios.get("http://44.225.181.153/db/getall", { withCredentials: true })
             return data
         }
         fetchCards()

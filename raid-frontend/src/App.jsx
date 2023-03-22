@@ -46,7 +46,7 @@ function App() {
     await new Promise((r) => setTimeout(r, 300));
 
     return await axios
-      .get(`http://localhost:3001/db/card/${postId}`)
+      .get(`http://44.225.181.153/db/card/${postId}`)
       .then((r) => r.data[0]);
   }
   return (

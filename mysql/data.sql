@@ -7,7 +7,7 @@ USE raid;
 CREATE TABLE users(
     user_id VARCHAR(255) NOT NULL,
     user_name VARCHAR(255) NOT NULL,
-    user_avatar VARCHAR(255) NOT NULL,
+    user_avatar VARCHAR(255),
     user_discriminator VARCHAR(5) NOT NULL,
     PRIMARY KEY (user_id)
 );
