@@ -1,0 +1,48 @@
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        
+        root /var/www/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name _;
+
+        location / {
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+                proxy_pass http://localhost:5173;
+        }
+        location /auth/discord {
+                proxy_pass http://localhost:3001/auth/discord/callback;
+        }
+        location /auth/discord/callback {
+                proxy_pass http://localhost:3001/auth/discord/callback;
+        }
+        location /auth/user {
+                proxy_pass http://localhost:3001/auth/user;
+        }
+        location /auth/logout {
+                proxy_pass http://localhost:3001/auth/logout;
+        }
+        location /db/addcard {
+                proxy_pass http://localhost:3001/db/addcard;
+        }
+        location /db/card/ {
+                proxy_pass http://localhost:3001/db/card/;
+        }
+        location /db/getall {
+                proxy_pass http://localhost:3001/db/getall;
+        }
+        location /db/getAttendees/ {
+                proxy_pass http://localhost:3001/db/getAttendees/;
+        }
+        location /db/dropCard {
+                proxy_pass http://localhost:3001/db/dropCard;
+        }
+        location /db/addAttendee {
+                proxy_pass http://localhost:3001/db/addAttendee;
+        }
+        location /db/deleteAttendee {
+                proxy_pass http://localhost:3001/db/deleteAttendee;
+        }
+}
