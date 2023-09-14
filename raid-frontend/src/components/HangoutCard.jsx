@@ -191,7 +191,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                             Cancel event
                         </Button>
                         <Button onClick={() => {
-                            navigator.clipboard.writeText(`http://localhost:5173/event/${id}`)
+                            navigator.clipboard.writeText(`http://localhost:5173/card/${id}`)
                             alert("Copied to clipboard!")
                         }}
                             flex={1}
