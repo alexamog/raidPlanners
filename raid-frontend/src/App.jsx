@@ -8,6 +8,7 @@ import Dashboard from "./components/Dashboard";
 import ViewCard from "./components/ViewCard";
 import axios from "axios";
 import { useState } from "react";
+import CodeInvite from "./components/CodeInvite";
 const location = new ReactLocation();
 
 function App() {
@@ -22,6 +23,10 @@ function App() {
     {
       path: "hangouts",
       element: <Dashboard />
+    },
+    {
+      path: "code",
+      element: <CodeInvite />
     },
     {
       path: 'card',
