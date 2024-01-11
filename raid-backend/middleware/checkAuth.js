@@ -7,6 +7,7 @@ module.exports = {
     },
     forwardAuthenticated: (req, res, next) => {
         if (!req.isAuthenticated()) {
+            console.log(req.isAuthenticated())
             return next();
         }
         res.send("Already logged in");

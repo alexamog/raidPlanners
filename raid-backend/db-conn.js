@@ -1,9 +1,9 @@
 const mysql = require("mysql2");
 
 const conn = mysql.createConnection({
-    host: '10.5.0.7',
-    user: 'root',
-    password: 'example',
+    host: 'localhost',
+    user: 'raid-user',
+    password: 'raiduser-0000',
     database: 'raid'
 });
 
