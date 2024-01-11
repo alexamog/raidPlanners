@@ -1,10 +1,6 @@
 from discord.ext import commands, tasks
 import requests
-import logging
-import logging.config
 from datetime import datetime
-
-
 class Automation(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -16,7 +12,7 @@ class Automation(commands.Cog):
         response = requests.get(
             f"http://localhost:3001/db/getall")
         hangout_info = response.json()
-        channel = self.bot.get_channel(1079166693315723356)
+        channel = self.bot.get_channel(1192285668047585300)
         for event in hangout_info:
             date = datetime.fromisoformat(event["hangout_date"][:-1])
             difference = date - datetime.now()
@@ -27,7 +23,6 @@ class Automation(commands.Cog):
     async def before_printer(self):
         print('Waiting...')
         await self.bot.wait_until_ready()
-
 
 async def setup(bot):
     await bot.add_cog(Automation(bot))

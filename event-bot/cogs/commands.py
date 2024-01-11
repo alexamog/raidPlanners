@@ -26,9 +26,19 @@ class Commands(commands.Cog):
         else:
             await ctx.send(f"You haven't joined any hangouts yet.")
 
+    @commands.command(name='events')
+    async def get_events(self,ctx):
+        response = requests.get(f"http://localhost:3001/db/getall")
+        print(response)
+        hangout_info = response.json()
+        print(hangout_info)
+        if len(hangout_info) != 0:
+            for data in hangout_info:
+                await ctx.send(
+                    f"Hangout: {data['hangout_title']}\n Creator: {data['user_name']}\n Location: {data['hangout_location']}\n Date: {data['hangout_date']}\n============================")
+
 
 logger = logging.getLogger('basic')
-
 
 async def setup(bot):
     await bot.add_cog(Commands(bot))
