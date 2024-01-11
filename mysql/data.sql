@@ -32,7 +32,7 @@ CREATE TABLE attendees(
     FOREIGN KEY (hangout_id) REFERENCES hangouts(hangout_id)
 );
 
-CREATE USER 'raid-user' @'%' IDENTIFIED BY 'raiduser-0000';
+CREATE USER 'raid-user'@'%' IDENTIFIED BY 'raiduser-0000';
 
 GRANT ALL PRIVILEGES ON raid.* TO 'raid-user' @'%' WITH GRANT OPTION;
 
