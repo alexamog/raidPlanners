@@ -8,6 +8,8 @@ const session = require("express-session");
 const auth = require("./routes/auth");
 const index = require("./routes/index");
 const db = require("./routes/db");
+const code = require("./routes/code");
+
 const discord = require("./routes/discord")
 
 const cors = require('cors');
@@ -45,6 +47,7 @@ app.use(cors({
 app.use("/auth", auth)
 app.use("/", index)
 app.use("/db", db)
+app.use("/code",code)
 app.use("/discord", discord)
 
 app.listen(port, () => {

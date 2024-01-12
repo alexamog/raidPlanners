@@ -49,8 +49,8 @@ export default function HangoutCard({ id, author, title, description, datetime, 
     }, []);
 
     const deleteCard = async (hangoutId) => {
-        console.log("delete card called")
         await axios.post("http://localhost:3001/db/dropCard", { cardId: hangoutId },{ withCredentials: true })
+
             .then((resp) => {
                 console.log(resp)
                 setExisting(false)
@@ -193,7 +193,7 @@ export default function HangoutCard({ id, author, title, description, datetime, 
                             Cancel event
                         </Button>
                         <Button onClick={() => {
-                            navigator.clipboard.writeText(`http://localhost:5173/event/${id}`)
+                            navigator.clipboard.writeText(`http://localhost:5173/card/${id}`)
                             alert("Copied to clipboard!")
                         }}
                             flex={1}

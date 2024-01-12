@@ -1,0 +1,4 @@
+discord
+python-dotenv
+autopep8
+requests

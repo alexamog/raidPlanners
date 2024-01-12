@@ -176,7 +176,7 @@ export default function ViewCard() {
                     colorScheme={'facebook'}
                     leftIcon={<FaDiscord />}>
                     <Center>
-                        <Text>Sign in with Discord to attend!</Text>
+                        <Text>Sign in to attend!</Text>
                     </Center>
                 </Button>}
                 {card.user_id != profile.id && profile.username != null && <Stack mt={8} direction={'row'} spacing={4}>
