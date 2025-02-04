@@ -1,5 +1,5 @@
-﻿# raidPlanners
-A web application designed to help friends coordinate plans/events 
+# raidPlanners
+A web application designed to help friends coordinate plans and events.
 
 # Getting Started
 
@@ -10,25 +10,27 @@ Create a .env file and paste in the following:
 `CLIENT_ID= TOKEN_SECRET= CALLBACK_URL=http://localhost:3001/auth/discord/callback`
 
 ## Creating the Discord OAuth application
-A Discord Bot  is needed for the Discord login strategy to work
-With your own Discord account, create a [Discord OAuth application](https://discord.com/developers/docs/intro)
+A Discord bot is required for the Discord login strategy to work.  
+Using your own Discord account, create a [Discord OAuth application](https://discord.com/developers/docs/intro).  
 
-In the settings of your Discord bot, under OAuth2, set a redirect to the callback URL (http://localhost:3001/auth/discord/callback)
+In your bot’s settings, under OAuth2, set a redirect to the callback URL:  
+`http://localhost:3001/auth/discord/callback`
 
-Finally, add the discord bot info inside the .env located in the raid-backend folder. 
+Finally, add the bot’s information to the .env file in the raid-backend folder.  
 
-You may now run both the front-end and back-end. 
+You can now run both the front end and back end.  
 
 ## Setting up Docker and running the application
-In this project, we utilize Docker to containerize the microservices. If you do not have Docker installed on your system, please follow the instructions provided [here](https://docs.docker.com/get-started/)
+This project uses Docker to containerize microservices. If Docker is not installed, follow the instructions [here](https://docs.docker.com/get-started/).  
 
-Once Docker is successfully installed, navigate to the parent project directory and execute the following command:
+Once Docker is installed, navigate to the project's parent directory and run:  
 `docker-compose up`
 
-Doing this will startup both the front-end and back-end server.
+This starts both the front-end and back-end servers.  
 
-When you're finished running the application, simply enter `docker-compose down` to shutdown the containers.
+To stop the application, enter:  
+`docker-compose down`
 
-# Future implementation
+# Future Implementation
 
-In the upcoming future we plan on implementing a Discord bot to remind users about any events that are upcomng or if they have been edited or deleted. 
+We plan to add a Discord bot that reminds users about events. It will notify them of upcoming, edited, or deleted events.
