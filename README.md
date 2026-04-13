@@ -1,36 +1,64 @@
 # raidPlanners
-A web application designed to help friends coordinate plans and events.
 
-# Getting Started
+A full-stack event scheduling platform for coordinating plans with friends, featuring Discord OAuth login and an integrated Discord bot for automated reminders.
 
-## Creating the .env file in raid-backend
+---
 
-Create a .env file and paste in the following:
+## Tech Stack
 
-`CLIENT_ID= TOKEN_SECRET= CALLBACK_URL=http://localhost:3001/auth/discord/callback`
+- **Frontend** — React
+- **Backend** — Node.js, Express, session-based auth middleware
+- **Auth** — Discord OAuth via Passport.js
+- **Database** — MySQL
+- **Bot** — Discord.py with two cogs: a daily polling loop for event reminders and a command handler for querying personal schedules
+- **Infrastructure** — Multi-container Docker Compose with custom bridge network, static IP assignments, and MySQL health checks
+- **Deployment** — AWS EC2 via Ansible
 
-## Creating the Discord OAuth application
-A Discord bot is required for the Discord login strategy to work.  
-Using your own Discord account, create a [Discord OAuth application](https://discord.com/developers/docs/intro).  
+---
 
-In your bot’s settings, under OAuth2, set a redirect to the callback URL:  
-`http://localhost:3001/auth/discord/callback`
+## Getting Started
 
-Finally, add the bot’s information to the .env file in the raid-backend folder.  
+### 1. Create a Discord OAuth application
 
-You can now run both the front end and back end.  
+Create a [Discord OAuth application](https://discord.com/developers/docs/intro) in the Discord developer portal.
 
-## Setting up Docker and running the application
-This project uses Docker to containerize microservices. If Docker is not installed, follow the instructions [here](https://docs.docker.com/get-started/).  
+Under **OAuth2**, add the following redirect URL:
+```
+http://localhost:3001/auth/discord/callback
+```
 
-Once Docker is installed, navigate to the project's parent directory and run:  
-`docker-compose up`
+### 2. Configure environment variables
 
-This starts both the front-end and back-end servers.  
+Create a `.env` file in the `raid-backend` folder:
+```env
+CLIENT_ID=
+TOKEN_SECRET=
+CALLBACK_URL=http://localhost:3001/auth/discord/callback
+```
 
-To stop the application, enter:  
-`docker-compose down`
+Fill in `CLIENT_ID` and `TOKEN_SECRET` with your bot's credentials from the Discord developer portal.
 
-# Future Implementation
+### 3. Run with Docker
 
-We plan to add a Discord bot that reminds users about events. It will notify them of upcoming, edited, or deleted events.
+If Docker is not installed, follow the [installation guide](https://docs.docker.com/get-started/).
+
+From the project root:
+```bash
+docker-compose up
+```
+
+To stop:
+```bash
+docker-compose down
+```
+
+The frontend will be available at `http://localhost:3000` and the backend at `http://localhost:3001`.
+
+---
+
+## Discord Bot
+
+The bot runs alongside the application and provides two features:
+
+- **Reminders** — a daily polling loop checks the API and sends a channel message 72 hours before any upcoming event
+- **Schedule queries** — users can query their personal upcoming events directly via a bot command in Discord
