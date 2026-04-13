@@ -3,6 +3,7 @@ import requests
 import logging
 import logging.config
 
+logger = logging.getLogger('basic')
 
 class Commands(commands.Cog):
     def __init__(self, bot):
@@ -37,8 +38,6 @@ class Commands(commands.Cog):
                 await ctx.send(
                     f"Hangout: {data['hangout_title']}\n Creator: {data['user_name']}\n Location: {data['hangout_location']}\n Date: {data['hangout_date']}\n============================")
 
-
-logger = logging.getLogger('basic')
 
 async def setup(bot):
     await bot.add_cog(Commands(bot))

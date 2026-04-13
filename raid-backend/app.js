@@ -1,4 +1,6 @@
 const path = require("path");
+const dotenv = require("dotenv");
+dotenv.config();
 const express = require("express");
 const port = process.env.PORT || 3001;
 const app = express();
@@ -20,7 +22,7 @@ app.use(ejsLayouts);
 app.set("view engine", "ejs");
 app.use(
   session({
-    secret: "secret",
+    secret: process.env.SESSION_SECRET || "secret",
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -32,7 +34,6 @@ app.use(
 );
 
 //Middlware
-app.use(ejsLayouts);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(passport.initialize());

@@ -27,7 +27,7 @@ export default function CodeInvite() {
                     <Heading>Enter code</Heading>
                     <Input size={"lg"} width={"lg"} placeholder='Enter code of workspace'
                         onChange={(e) => {
-                            setInviteCode({inviteCode: e.target.value })
+                            setInviteCode(e.target.value)
                         }}
                     />
                 </VStack>

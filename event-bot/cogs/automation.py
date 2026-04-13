@@ -1,6 +1,11 @@
 from discord.ext import commands, tasks
 import requests
+import os
 from datetime import datetime
+from dotenv import load_dotenv
+
+load_dotenv()
+
 class Automation(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -12,7 +17,8 @@ class Automation(commands.Cog):
         response = requests.get(
             f"http://localhost:3001/db/getall")
         hangout_info = response.json()
-        channel = self.bot.get_channel(1192285668047585300)
+        channel_id = int(os.getenv("DISCORD_CHANNEL_ID", "1192285668047585300"))
+        channel = self.bot.get_channel(channel_id)
         for event in hangout_info:
             date = datetime.fromisoformat(event["hangout_date"][:-1])
             difference = date - datetime.now()

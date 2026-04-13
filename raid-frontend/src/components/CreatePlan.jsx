@@ -20,7 +20,7 @@ export default function CreatePlan() {
 
     const handleClick = async (e) => {
         e.preventDefault();
-        await axios.post("http://localhost:3001/db/addcard", cardInfo, {withCredentials: true})
+        await axios.post("http://localhost:3001/db/addCard", cardInfo, {withCredentials: true})
             .then((resp) => {
                 navigate({ to: "/hangouts", replace: true })
             })

@@ -65,7 +65,7 @@ export default function ViewCard() {
             })
     }, []);
     const deleteCard = async (hangoutId) => {
-        await axios.delete("http://localhost:3001/db/dropCard", { cardId: hangoutId }, { withCredentials: true })
+        await axios.post("http://localhost:3001/db/dropCard", { cardId: hangoutId }, { withCredentials: true })
             .then((resp) => {
                 alert("Card deleted.")
                 navigate({ to: "/hangouts", replace: true })
